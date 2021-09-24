@@ -6,3 +6,51 @@
   padding: 0;
   margin: 0;
 }
+
+a{
+  color: black;
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.header{
+  background: cadetblue;
+  &__title{
+    justify-content: center;
+    align-self: center;
+    font-weight: 900;
+    font-size: 32px;
+    padding-left: 1em;
+    padding-top: .5em;
+  }
+  &__nav-bar{
+    justify-content: space-between;
+    gap: .8em;
+  }
+  &__nav-item{
+    font-weight: 200;
+    padding: 1em;
+    &:hover{
+      background: rgb(114, 194, 197);
+    }
+    &--selected{
+      font-weight: 900;
+      background: rgb(74, 124, 126);
+      color: white;
+      &:hover{
+        font-weight: 900;
+        background: rgb(74, 124, 126);
+        color: white;
+      }
+  
+  }
+
+}
+}

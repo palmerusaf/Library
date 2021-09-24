@@ -5,4 +5,40 @@
   padding: 0;
   margin: 0; }
 
+a {
+  color: black; }
+
+.flex {
+  display: flex; }
+
+.flex-col {
+  display: flex;
+  flex-direction: column; }
+
+.header {
+  background: cadetblue; }
+  .header__title {
+    justify-content: center;
+    align-self: center;
+    font-weight: 900;
+    font-size: 32px;
+    padding-left: 1em;
+    padding-top: .5em; }
+  .header__nav-bar {
+    justify-content: space-between;
+    gap: .8em; }
+  .header__nav-item {
+    font-weight: 200;
+    padding: 1em; }
+    .header__nav-item:hover {
+      background: #72c2c5; }
+    .header__nav-item--selected {
+      font-weight: 900;
+      background: #4a7c7e;
+      color: white; }
+      .header__nav-item--selected:hover {
+        font-weight: 900;
+        background: #4a7c7e;
+        color: white; }
+
 /*# sourceMappingURL=style.css.map */
