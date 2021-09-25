@@ -41,4 +41,11 @@ a {
         background: #4a7c7e;
         color: white; }
 
+.form {
+  margin: 5em;
+  padding: 3em;
+  border: solid black 1px;
+  border-radius: 10px;
+  background: lightcyan; }
+
 /*# sourceMappingURL=style.css.map */

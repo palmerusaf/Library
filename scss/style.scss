@@ -56,7 +56,11 @@ a{
 }
 
 .form{
-
+  margin: 5em;
+  padding: 3em;
+border: solid black 1px;
+border-radius: 10px;
+background: lightcyan;
   &__title{
 
   }
