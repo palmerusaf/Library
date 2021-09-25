@@ -54,3 +54,104 @@ a{
 
 }
 }
+
+.form{
+  margin: 5em;
+  padding: 3em;
+border: solid black 1px;
+border-radius: 10px;
+background: lightcyan;
+gap:.5em;
+width: 50%;
+  &__title{
+    text-decoration: underline;
+    font-size: 24px;
+  }
+  &__item{
+
+  }
+  &__label{
+
+  }
+  &__valid{
+    padding-left: 6px;
+  }
+  &__input-text{
+border-radius: 5px;
+text-indent: 8px;
+& + .form__valid{
+  position: relative;
+}
+&:valid{
+  border-color: lightgreen;
+  & + .form__valid::before{
+    content: '✓';
+    color: green;
+  }
+}
+&:invalid{
+  border-color: red;
+  & + .form__valid::before{
+    content: '✖';
+    color: red;
+  }
+}
+&:focus-visible{
+  outline: #4a7c7e solid 2px;
+}
+  }
+  &__input-num{
+    border-radius: 5px;
+    text-indent: 8px;
+    & + .form__valid{
+      position: relative;
+    }
+    &:valid{
+      border-color: lightgreen;
+      & + .form__valid::before{
+        content: '✓';
+        color: green;
+      }
+    }
+    &:invalid{
+      border-color: red;
+      & + .form__valid::before{
+        content: '✖';
+        color: red;
+      }
+    }
+    &:focus-visible{
+      outline: #4a7c7e solid 2px;
+    }
+  }
+  &__input-radio{
+    &:focus-visible{
+      outline: #4a7c7e solid 2px;
+    }   
+  }
+  &__btn-field{
+gap: 1em;
+  }
+  &__btn{
+padding: .3em 1em;    
+border:none;
+border-radius: 5px;
+background: #5f9ea0;
+&:hover{
+  background: rgb(114, 194, 197);;
+}
+&:focus-visible{
+  outline: #4a7c7e solid 2px;
+}  
+    &--reset{
+      &:hover{
+        outline: red 2px solid;
+}      
+    }
+    &--submit{
+      &:hover{
+        outline: lightgreen 2px solid;
+}  
+    }
+  }
+}
