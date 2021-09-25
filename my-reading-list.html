@@ -20,5 +20,30 @@
     </nav>
     </header>
 
+    <table class="flex-col table">
+        <thead class="table__head">
+            <tr class="table__title"><td>Reading List</td></tr>
+            <tr class="flex table__head-row">
+                <th class="table__head-item">Author</th>
+                <th class="table__head-item">Title</th>
+                <th class="table__head-item">Number of Pages</th>
+                <th class="table__head-item">Status</th>
+            </tr>
+        </thead>
+        <!-- Place holder for styling remove after js code is finished -->
+        <tr class="flex table__row">
+            <td>William Gibson</td>
+            <td>Neuromacer</td>
+            <td>271</td>
+            <td><label for="read">Read</label><input type="checkbox" id="read"></td>
+        </tr>
+        <tr class="flex table__row table__row--even">
+            <td>Jules Verne</td>
+            <td>Around the Moon</td>
+            <td>390</td>
+            <td><label for="read">Read</label><input type="checkbox" id="read" checked></td>
+        </tr>
+    </table>
+
 </body>
 </html>
