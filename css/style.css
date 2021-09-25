@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   list-style: none;
@@ -48,9 +49,41 @@ a {
   border-radius: 10px;
   background: lightcyan;
   gap: .5em;
-  align-items: center; }
+  width: 50%; }
   .form__title {
     text-decoration: underline;
     font-size: 24px; }
+  .form__valid {
+    padding-left: 6px; }
+  .form__input-text {
+    border-radius: 5px;
+    text-indent: 8px; }
+    .form__input-text + .form__valid {
+      position: relative; }
+    .form__input-text:valid {
+      border-color: green; }
+      .form__input-text:valid + .form__valid::before {
+        content: '✓';
+        color: green; }
+    .form__input-text:invalid {
+      border-color: red; }
+      .form__input-text:invalid + .form__valid::before {
+        content: '✖';
+        color: red; }
+  .form__input-num {
+    border-radius: 5px;
+    text-indent: 8px; }
+    .form__input-num + .form__valid {
+      position: relative; }
+    .form__input-num:valid {
+      border-color: green; }
+      .form__input-num:valid + .form__valid::before {
+        content: '✓';
+        color: green; }
+    .form__input-num:invalid {
+      border-color: red; }
+      .form__input-num:invalid + .form__valid::before {
+        content: '✖';
+        color: red; }
 
 /*# sourceMappingURL=style.css.map */

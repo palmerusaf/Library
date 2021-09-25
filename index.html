@@ -23,21 +23,21 @@
         <h1 class="form__title">Please enter your book information below:</h1>
         <div class="form__item">
             <label class="form__label" for="author-name">Author's Name:</label>
-            <input class="form__input-text" type="text" id="author-name" name="author" placeholder="First Name Last Name">
+            <input class="form__input-text" type="text" id="author-name" name="author" placeholder="First Name Last Name" required><span class="form__valid"></span>
         </div>
         <div class="form__item">
             <label class="form__label" for="book-title">Book's Title:</label>
-            <input class="form__input-text" type="text" id="book-title" name="title" placeholder="Title of Book">
+            <input class="form__input-text" type="text" id="book-title" name="title" placeholder="Title of Book" required><span class="form__valid"></span>
         </div>
         <div class="form__item">
             <label class="form__label" for="book-pages">Number of Pages:</label>
-            <input class="form__input-num" type="number" id="book-pages" name="pages" placeholder="Enter a whole number" min="1">
+            <input class="form__input-num" type="number" id="book-pages" name="pages" placeholder="Enter a whole number" min="1" required><span class="form__valid"></span>
         </div>
         <div class="form__item">
-            <input class="form__input-radio" type="radio" id="true" name="have-read" value="true">
+            <input class="form__input-radio" type="radio" id="true" name="have-read" value="true" required>
             <label class="form__label" for="true">Have Read</label>
-            <input class="form__input-radio" type="radio" id="false" name="have-read" value="false">
-            <label class="form__label" for="false">Haven't Read</label>
+            <input class="form__input-radio" type="radio" id="false" name="have-read" value="false" required>
+            <label class="form__label" for="false">Haven't Read</label><span class="form__valid"></span>
         </div>
         <div class="flex form__btn-field">
             <div class="form__btn form__btn--reset">

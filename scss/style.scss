@@ -62,7 +62,7 @@ border: solid black 1px;
 border-radius: 10px;
 background: lightcyan;
 gap:.5em;
-align-items:center;
+width: 50%;
   &__title{
     text-decoration: underline;
     font-size: 24px;
@@ -73,11 +73,53 @@ align-items:center;
   &__label{
 
   }
+  &__valid{
+    padding-left: 6px;
+  }
   &__input-text{
-
+border-radius: 5px;
+text-indent: 8px;
+& + .form__valid{
+  position: relative;
+}
+&:valid{
+  border-color: lightgreen;
+  & + .form__valid::before{
+    content: '✓';
+    color: green;
+  }
+}
+&:invalid{
+  border-color: red;
+  & + .form__valid::before{
+    content: '✖';
+    color: red;
+  }
+}
+&:focus-visible{
+  outline: #4a7c7e solid 2px;
+}
   }
   &__input-num{
-
+    border-radius: 5px;
+    text-indent: 8px;
+    & + .form__valid{
+      position: relative;
+    }
+    &:valid{
+      border-color: lightgreen;
+      & + .form__valid::before{
+        content: '✓';
+        color: green;
+      }
+    }
+    &:invalid{
+      border-color: red;
+      & + .form__valid::before{
+        content: '✖';
+        color: red;
+      }
+    }
   }
   &__input-radio{
 
