@@ -120,20 +120,38 @@ text-indent: 8px;
         color: red;
       }
     }
+    &:focus-visible{
+      outline: #4a7c7e solid 2px;
+    }
   }
   &__input-radio{
-
+    &:focus-visible{
+      outline: #4a7c7e solid 2px;
+    }   
   }
   &__btn-field{
-
+gap: 1em;
   }
   &__btn{
-    
+padding: .3em 1em;    
+border:none;
+border-radius: 5px;
+background: #5f9ea0;
+&:hover{
+  background: rgb(114, 194, 197);;
+}
+&:focus-visible{
+  outline: #4a7c7e solid 2px;
+}  
     &--reset{
-      
+      &:hover{
+        outline: red 2px solid;
+}      
     }
     &--submit{
-
+      &:hover{
+        outline: lightgreen 2px solid;
+}  
     }
   }
 }

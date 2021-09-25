@@ -61,7 +61,7 @@ a {
     .form__input-text + .form__valid {
       position: relative; }
     .form__input-text:valid {
-      border-color: green; }
+      border-color: lightgreen; }
       .form__input-text:valid + .form__valid::before {
         content: '✓';
         color: green; }
@@ -70,13 +70,15 @@ a {
       .form__input-text:invalid + .form__valid::before {
         content: '✖';
         color: red; }
+    .form__input-text:focus-visible {
+      outline: #4a7c7e solid 2px; }
   .form__input-num {
     border-radius: 5px;
     text-indent: 8px; }
     .form__input-num + .form__valid {
       position: relative; }
     .form__input-num:valid {
-      border-color: green; }
+      border-color: lightgreen; }
       .form__input-num:valid + .form__valid::before {
         content: '✓';
         color: green; }
@@ -85,5 +87,24 @@ a {
       .form__input-num:invalid + .form__valid::before {
         content: '✖';
         color: red; }
+    .form__input-num:focus-visible {
+      outline: #4a7c7e solid 2px; }
+  .form__input-radio:focus-visible {
+    outline: #4a7c7e solid 2px; }
+  .form__btn-field {
+    gap: 1em; }
+  .form__btn {
+    padding: .3em 1em;
+    border: none;
+    border-radius: 5px;
+    background: #5f9ea0; }
+    .form__btn:hover {
+      background: #72c2c5; }
+    .form__btn:focus-visible {
+      outline: #4a7c7e solid 2px; }
+    .form__btn--reset:hover {
+      outline: red 2px solid; }
+    .form__btn--submit:hover {
+      outline: lightgreen 2px solid; }
 
 /*# sourceMappingURL=style.css.map */
