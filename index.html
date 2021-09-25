@@ -22,27 +22,29 @@
     <form class="flex-col form">
         <h1 class="form__title">Please enter your book information below:</h1>
         <div class="form__item">
-            <label class="form__label" for=""></label>
-            <input class="form__input-text" type="text" id="" name="">
+            <label class="form__label" for="author-name">Author's Name:</label>
+            <input class="form__input-text" type="text" id="author-name" name="author" placeholder="First Name Last Name">
         </div>
         <div class="form__item">
-            <label class="form__label" for=""></label>
-            <input class="form__input-text" type="text" id="" name="">
+            <label class="form__label" for="book-title">Book's Title:</label>
+            <input class="form__input-text" type="text" id="book-title" name="title" placeholder="Title of Book">
         </div>
         <div class="form__item">
-            <label class="form__label" for=""></label>
-            <input class="form__input-num" type="number" id="" name="">
+            <label class="form__label" for="book-pages">Number of Pages:</label>
+            <input class="form__input-num" type="number" id="book-pages" name="pages" placeholder="Enter a whole number" min="1">
         </div>
         <div class="form__item">
-            <label class="form__label" for=""></label>
-            <input class="form__input-radio" type="radio" id="" name="">
-            <label class="form__label" for=""></label>
-            <input class="form__input-radio" type="radio" id="" name="">
+            <input class="form__input-radio" type="radio" id="true" name="have-read" value="true">
+            <label class="form__label" for="true">Have Read</label>
+            <input class="form__input-radio" type="radio" id="false" name="have-read" value="false">
+            <label class="form__label" for="false">Haven't Read</label>
         </div>
-        <div class="flex">
+        <div class="flex form__btn-field">
             <div class="form__btn form__btn--reset">
+                <input type="reset">
             </div>
             <div class="form__btn form__btn--submit">
+                <input type="submit" value="Submit">
             </div>
         </div>
                                         <!-- 
