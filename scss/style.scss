@@ -57,12 +57,13 @@ a{
 
 .form{
   margin: 5em;
-  padding: 3em;
+  padding: 2em;
 border: solid black 1px;
 border-radius: 10px;
 background: lightcyan;
 gap:.5em;
 width: 50%;
+align-self: center;
   &__title{
     text-decoration: underline;
     font-size: 24px;
@@ -158,12 +159,15 @@ background: #5f9ea0;
 
 .table{
   &__head{
-
+padding:.5em;
   }
   &__title{
+    font-weight: 800;
+    font-size: 24px;
+    justify-content: center;
   }
   &__head-row{
-
+justify-content: space-between;
   }
   &__head-item{
 
