@@ -114,6 +114,11 @@ a {
   font-weight: 800;
   font-size: 24px;
   justify-content: center; }
+.table__row {
+  background: #72c2c5; }
+  .table__row--even {
+    background: #4a7c7e;
+    color: white; }
 .table__item {
   flex: 1;
   text-align: center; }

@@ -166,13 +166,13 @@ padding:.5em;
     justify-content: center;
   }
   &__head-row{
-// justify-content: space-between;
-// flex: 1;
   }
   
   &__row{
+    background: rgb(114, 194, 197);
     &--even{
-      
+      background: rgb(74, 124, 126);
+      color: white;
     }
   }
   &__item{
