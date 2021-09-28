@@ -176,6 +176,7 @@ a {
     flex: 1;
     text-align: center;
     overflow: scroll;
+    white-space: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
     &::-webkit-scrollbar{
