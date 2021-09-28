@@ -7,177 +7,179 @@
   margin: 0;
 }
 
-a{
+a {
   color: black;
 }
 
-.flex{
+.flex {
   display: flex;
 }
 
-.flex-col{
+.flex-col {
   display: flex;
   flex-direction: column;
 }
 
-.header{
+.header {
   background: cadetblue;
-  &__title{
+  &__title {
     justify-content: center;
     align-self: center;
     font-weight: 900;
     font-size: 32px;
     padding-left: 1em;
-    padding-top: .5em;
+    padding-top: 0.5em;
   }
-  &__nav-bar{
+  &__nav-bar {
     justify-content: space-between;
-    gap: .8em;
+    gap: 0.8em;
   }
-  &__nav-item{
+  &__nav-item {
     font-weight: 200;
     padding: 1em;
-    &:hover{
+    &:hover {
       background: rgb(114, 194, 197);
     }
-    &--selected{
+    &--selected {
       font-weight: 900;
       background: rgb(74, 124, 126);
       color: white;
-      &:hover{
+      &:hover {
         font-weight: 900;
         background: rgb(74, 124, 126);
         color: white;
       }
-  
+    }
   }
-
-}
 }
 
-.form{
+.form {
   margin: 5em;
   padding: 2em;
-border: solid black 1px;
-border-radius: 10px;
-background: lightcyan;
-gap:.5em;
-width: 50%;
-align-self: center;
-  &__title{
+  border: solid black 1px;
+  border-radius: 10px;
+  background: lightcyan;
+  gap: 0.5em;
+  width: 50%;
+  align-self: center;
+  &__title {
     text-decoration: underline;
     font-size: 24px;
   }
-  &__item{
+  &__item {
   }
-  &__label{
-
+  &__label {
   }
-  &__valid{
+  &__valid {
     padding-left: 6px;
   }
-  &__input-text{
-border-radius: 5px;
-text-indent: 8px;
-& + .form__valid{
-  position: relative;
-}
-&:valid{
-  border-color: lightgreen;
-  & + .form__valid::before{
-    content: '✓';
-    color: green;
-  }
-}
-&:invalid{
-  border-color: red;
-  & + .form__valid::before{
-    content: '✖';
-    color: red;
-  }
-}
-&:focus-visible{
-  outline: #4a7c7e solid 2px;
-}
-  }
-  &__input-num{
+  &__input-text {
     border-radius: 5px;
     text-indent: 8px;
-    & + .form__valid{
+    & + .form__valid {
       position: relative;
     }
-    &:valid{
+    &:valid {
       border-color: lightgreen;
-      & + .form__valid::before{
-        content: '✓';
+      & + .form__valid::before {
+        content: "✓";
         color: green;
       }
     }
-    &:invalid{
+    &:invalid {
       border-color: red;
-      & + .form__valid::before{
-        content: '✖';
+      & + .form__valid::before {
+        content: "✖";
         color: red;
       }
     }
-    &:focus-visible{
+    &:focus-visible {
       outline: #4a7c7e solid 2px;
     }
   }
-  &__input-radio{
-    &:focus-visible{
+  &__input-num {
+    border-radius: 5px;
+    text-indent: 8px;
+    & + .form__valid {
+      position: relative;
+    }
+    &:valid {
+      border-color: lightgreen;
+      & + .form__valid::before {
+        content: "✓";
+        color: green;
+      }
+    }
+    &:invalid {
+      border-color: red;
+      & + .form__valid::before {
+        content: "✖";
+        color: red;
+      }
+    }
+    &:focus-visible {
       outline: #4a7c7e solid 2px;
-    }   
+    }
   }
-  &__btn-field{
-gap: 1em;
+  &__input-radio {
+    &:focus-visible {
+      outline: #4a7c7e solid 2px;
+    }
   }
-  &__btn{
-padding: .3em 1em;    
-border:none;
-border-radius: 5px;
-background: #5f9ea0;
-&:hover{
-  background: rgb(114, 194, 197);;
-}
-&:focus-visible{
-  outline: #4a7c7e solid 2px;
-}  
-    &--reset{
-      &:hover{
+  &__btn-field {
+    gap: 1em;
+  }
+  &__btn {
+    padding: 0.3em 1em;
+    border: none;
+    border-radius: 5px;
+    background: #5f9ea0;
+    &:hover {
+      background: rgb(114, 194, 197);
+    }
+    &:focus-visible {
+      outline: #4a7c7e solid 2px;
+    }
+    &--reset {
+      &:hover {
         outline: red 2px solid;
-}      
+      }
     }
-    &--submit{
-      &:hover{
+    &--submit {
+      &:hover {
         outline: lightgreen 2px solid;
-}  
+      }
     }
   }
 }
 
-.table{
-  &__head{
-padding:.5em;
+.table {
+  &__head {
+    padding: 0.5em;
   }
-  &__title{
+  &__title {
     font-weight: 800;
     font-size: 24px;
     justify-content: center;
   }
-  &__head-row{
+  &__head-row {
   }
-  
-  &__row{
+
+  &__row {
     background: rgb(114, 194, 197);
-    &--even{
+    &--even {
       background: rgb(74, 124, 126);
       color: white;
     }
   }
-  &__item{
-    // border: black solid 1px;
+  &__item {
     flex: 1;
-text-align: center;
+    text-align: center;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar{
+      display: none;
+    }
   }
 }
