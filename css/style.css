@@ -44,12 +44,13 @@ a {
 
 .form {
   margin: 5em;
-  padding: 3em;
+  padding: 2em;
   border: solid black 1px;
   border-radius: 10px;
   background: lightcyan;
   gap: .5em;
-  width: 50%; }
+  width: 50%;
+  align-self: center; }
   .form__title {
     text-decoration: underline;
     font-size: 24px; }
@@ -106,5 +107,15 @@ a {
       outline: red 2px solid; }
     .form__btn--submit:hover {
       outline: lightgreen 2px solid; }
+
+.table__head {
+  padding: .5em; }
+.table__title {
+  font-weight: 800;
+  font-size: 24px;
+  justify-content: center; }
+.table__item {
+  flex: 1;
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

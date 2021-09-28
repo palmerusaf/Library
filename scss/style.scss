@@ -69,7 +69,6 @@ align-self: center;
     font-size: 24px;
   }
   &__item{
-
   }
   &__label{
 
@@ -167,17 +166,18 @@ padding:.5em;
     justify-content: center;
   }
   &__head-row{
-justify-content: space-between;
+// justify-content: space-between;
+// flex: 1;
   }
-  &__head-item{
-
-  }
+  
   &__row{
     &--even{
-
+      
     }
   }
-  &__row-item{
-    
+  &__item{
+    // border: black solid 1px;
+    flex: 1;
+text-align: center;
   }
 }
