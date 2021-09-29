@@ -9,3 +9,7 @@ function Book(author, title, pages, read){
     this.read = read;
 }
 
+/** Add a book object to array */
+function addBookToMyReadingList(author, title, pages, read){
+    myReadingList.push(new Book(author, title, pages, read));
+}
