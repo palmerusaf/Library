@@ -13,3 +13,24 @@ function Book(author, title, pages, read){
 function addBookToMyReadingList(author, title, pages, read){
     myReadingList.push(new Book(author, title, pages, read));
 }
+
+/** Loop array and append all items to html table */
+function appendTableFromArray(){
+/** Helper Function that attaches read checkbox and label to row element */
+function attachReadCheckbox(rowItem, read){
+    const label = document.createElement("label");
+    // label.htmlFor = ; find a way to create unique ids for read labels
+    label.textContent = "Read";
+    rowItem.append(label);
+
+    const checkBox = document.createElement("input");
+    checkBox.type = "checkbox";
+    // checkBox.id = find a way to create unique ids for read labels
+    // attach event listener for update array list of true false stats
+    checkBox.checked = read;
+    rowItem.append(checkBox);
+}
+
+}
+
+}
