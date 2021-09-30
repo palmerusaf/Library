@@ -4,6 +4,10 @@ let myReadingList = [];
 // addBookToMyReadingList('author1','title1',123,false)
 // addBookToMyReadingList('author2','title2',321,true)
 
+// Event listeners for nav-bar buttons
+const navBarButtons = document.querySelectorAll(".header__nav-item");
+navBarButtons.forEach(button=>button.addEventListener("click",(e)=>console.log(e)));
+
 /** Constructor for Book Objects*/
 function Book(author, title, pages, read) {
   this.author = author;
