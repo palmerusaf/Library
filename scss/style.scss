@@ -27,17 +27,18 @@ a {
     align-self: center;
     font-weight: 900;
     font-size: 32px;
-    padding-left: 1em;
     padding-top: 0.5em;
   }
   &__nav-bar {
     justify-content: space-between;
-    gap: 0.8em;
   }
   &__nav-item {
     font-weight: 200;
     padding: 1em;
+    flex: 1;
+    text-align: center;
     &:hover {
+      cursor: pointer;
       background: rgb(114, 194, 197);
     }
     &--selected {
