@@ -146,6 +146,12 @@ a {
         outline: red 2px solid;
       }
     }
+    &--del{
+      padding:0 .8em;
+      margin-right: .3em;
+      height: 1.7em;
+      align-self: center;
+    }
     &--submit {
       &:hover {
         outline: lightgreen 2px solid;
@@ -175,6 +181,7 @@ a {
   }
   &__item {
     flex: 1;
+    padding: .3em;
     text-align: center;
     overflow: scroll;
     white-space: nowrap;

@@ -65,6 +65,18 @@ function addBookToMyReadingList(author, title, pages, read) {
 
 /** Loop array and append all items to html table body */
 function appendTableFromArray() {
+  /** Creates delete button that deletes the given book index then reloads the table */
+  function deleteBtn(bookIndex) {
+    const btn = document.createElement("button");
+    btn.className = "form__btn form__btn--reset form__btn--del";
+    btn.textContent="delete";
+    btn.addEventListener("click", (bookIndex) => {
+      myReadingList.splice(bookIndex, 1);
+      clearTable();
+      appendTableFromArray();
+    });
+    return btn;
+  }
   /** Helper Function that attaches read checkbox and label to row element */
   function attachReadCheckbox(rowItem, read, bookIndex) {
     const label = document.createElement("label");
@@ -103,7 +115,17 @@ function appendTableFromArray() {
   const table = document.querySelector("tbody");
   for (let i = 0; i < myReadingList.length; i++) {
     const newRow = createBookRow(myReadingList[i], i);
+    newRow.appendChild(deleteBtn(i));
     if (i % 2 !== 0) newRow.className += " table__row--even";
     table.appendChild(newRow);
   }
+}
+
+/** Clears all row elements from the body of table
+ * Useful for resetting the table.
+ */
+function clearTable() {
+  const tbody = document.querySelector("tbody");
+  const tbodyRows = document.querySelectorAll("tbody tr");
+  tbodyRows.forEach((row) => tbody.removeChild(row));
 }
