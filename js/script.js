@@ -1,8 +1,9 @@
 /** Global array to store users books for reading list */
 let myReadingList = [];
-// //testList
-// addBookToMyReadingList('author1','title1',123,false)
-// addBookToMyReadingList('author2','title2',321,true)
+//testList
+// addBookToMyReadingList("author1", "title1", 123, false);
+// addBookToMyReadingList("author2", "title2", 321, true);
+// appendTableFromArray();
 
 /** Event listeners for nav-bar buttons */
 const navBarButtons = document.querySelectorAll(".header__nav-item");
@@ -65,28 +66,28 @@ function addBookToMyReadingList(author, title, pages, read) {
 /** Loop array and append all items to html table body */
 function appendTableFromArray() {
   /** Helper Function that attaches read checkbox and label to row element */
-  function attachReadCheckbox(rowItem, read) {
+  function attachReadCheckbox(rowItem, read, bookIndex) {
     const label = document.createElement("label");
-    // label.htmlFor = ; find a way to create unique ids for read labels
+    label.htmlFor = `read${bookIndex}`;
     label.textContent = "Read";
     rowItem.append(label);
 
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
-    // checkBox.id = find a way to create unique ids for read labels
+    checkBox.id = `read${bookIndex}`;
     // attach event listener for update array list of true false stats
     checkBox.checked = read;
     rowItem.append(checkBox);
   }
   /** Create and return a row that includes elements from book object items*/
-  function createBookRow(book) {
+  function createBookRow(book, bookIndex) {
     const row = document.createElement("tr");
     row.className = "flex table__row";
     for (const item in book) {
       const rowItem = document.createElement("td");
       rowItem.className = "table__item";
       if (item === "read") {
-        attachReadCheckbox(rowItem, book[item]);
+        attachReadCheckbox(rowItem, book[item], bookIndex);
         row.appendChild(rowItem);
         continue;
       }
@@ -97,7 +98,7 @@ function appendTableFromArray() {
   }
   const table = document.querySelector("tbody");
   for (let i = 0; i < myReadingList.length; i++) {
-    const newRow = createBookRow(myReadingList[i]);
+    const newRow = createBookRow(myReadingList[i], i);
     if (i % 2 !== 0) newRow.className += " table__row--even";
     table.appendChild(newRow);
   }
