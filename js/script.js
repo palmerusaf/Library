@@ -1,9 +1,9 @@
 /** Global array to store users books for reading list */
 let myReadingList = [];
-//testList
-// addBookToMyReadingList("author1", "title1", 123, false);
-// addBookToMyReadingList("author2", "title2", 321, true);
-// appendTableFromArray();
+// testList
+addBookToMyReadingList("author1", "title1", 123, false);
+addBookToMyReadingList("author2", "title2", 321, true);
+appendTableFromArray();
 
 /** Event listeners for nav-bar buttons */
 const navBarButtons = document.querySelectorAll(".header__nav-item");
@@ -76,6 +76,10 @@ function appendTableFromArray() {
     checkBox.type = "checkbox";
     checkBox.id = `read${bookIndex}`;
     // attach event listener for update array list of true false stats
+    checkBox.addEventListener(
+      "change",
+      (e) => (myReadingList[bookIndex].read = e.target.checked)
+    );
     checkBox.checked = read;
     rowItem.append(checkBox);
   }
