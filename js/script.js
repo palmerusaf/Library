@@ -7,7 +7,10 @@ let myReadingList = [];
 /** Event listeners for nav-bar buttons */
 const navBarButtons = document.querySelectorAll(".header__nav-item");
 navBarButtons.forEach((button) =>
-  button.addEventListener("click", (e) => updateNavBar(e.target))
+  button.addEventListener("click", (e) => {
+    updateNavBar(e.target);
+    updatePageElements(e.target);
+  })
 );
 
 /** Change Nav-bar status by changing style classes */
@@ -21,6 +24,29 @@ function updateNavBar(navElement) {
   );
   navElement.className += " header__nav-item--selected";
 }
+
+/** Hide/Un-hide body elements based on nav btn click */
+function updatePageElements(navElement) {
+  document.querySelectorAll(".form").forEach((node) => {
+    if (!node.className.includes("hide-me")) node.className += " hide-me";
+  });
+  switch (navElement.id) {
+    case "nav-add":
+      document.querySelector("#form").className = document
+        .querySelector("#form")
+        .className.replace(" hide-me", "");
+      break;
+    case "nav-list":
+      document.querySelector("#table").className = document
+        .querySelector("#table")
+        .className.replace(" hide-me", "");
+      break;
+    case "nav-about":
+      document.querySelector("#about").className = document
+        .querySelector("#about")
+        .className.replace(" hide-me", "");
+      break;
+  }
 }
 
 /** Constructor for Book Objects*/
