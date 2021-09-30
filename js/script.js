@@ -4,9 +4,24 @@ let myReadingList = [];
 // addBookToMyReadingList('author1','title1',123,false)
 // addBookToMyReadingList('author2','title2',321,true)
 
-// Event listeners for nav-bar buttons
+/** Event listeners for nav-bar buttons */
 const navBarButtons = document.querySelectorAll(".header__nav-item");
-navBarButtons.forEach(button=>button.addEventListener("click",(e)=>console.log(e)));
+navBarButtons.forEach((button) =>
+  button.addEventListener("click", (e) => updateNavBar(e.target))
+);
+
+/** Change Nav-bar status by changing style classes */
+function updateNavBar(navElement) {
+  navBarButtons.forEach(
+    (button) =>
+      (button.className = button.className.replace(
+        "header__nav-item--selected",
+        ""
+      ))
+  );
+  navElement.className += " header__nav-item--selected";
+}
+}
 
 /** Constructor for Book Objects*/
 function Book(author, title, pages, read) {
