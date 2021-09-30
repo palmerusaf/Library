@@ -129,4 +129,7 @@ a {
   .table__item::-webkit-scrollbar {
     display: none; }
 
+.hide-me {
+  display: none; }
+
 /*# sourceMappingURL=style.css.map */
