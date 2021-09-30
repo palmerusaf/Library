@@ -23,15 +23,16 @@ a {
     align-self: center;
     font-weight: 900;
     font-size: 32px;
-    padding-left: 1em;
     padding-top: 0.5em; }
   .header__nav-bar {
-    justify-content: space-between;
-    gap: 0.8em; }
+    justify-content: space-between; }
   .header__nav-item {
     font-weight: 200;
-    padding: 1em; }
+    padding: 1em;
+    flex: 1;
+    text-align: center; }
     .header__nav-item:hover {
+      cursor: pointer;
       background: #72c2c5; }
     .header__nav-item--selected {
       font-weight: 900;
@@ -128,5 +129,8 @@ a {
   scrollbar-width: none; }
   .table__item::-webkit-scrollbar {
     display: none; }
+
+.hide-me {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

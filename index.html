@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="flex-col">
@@ -13,13 +13,14 @@
         <span class="header__title">My Library</span>
     <nav>
         <ul class="flex header__nav-bar">
-            <li class="header__nav-item header__nav-item--selected">Add Book</li>
-            <li class="header__nav-item"><a href="./my-reading-list.html">My Reading List</a></li>
-            <li class="header__nav-item"><a href="./about.html">About</a></li>
+            <li class="header__nav-item header__nav-item--selected" id="nav-add">Add Book</li>
+            <li class="header__nav-item" id="nav-list">My Reading List</li>
+            <li class="header__nav-item" id="nav-about">About</li>
         </ul>
     </nav>
     </header>
-    <form class="flex-col form">
+
+    <form class="flex-col form" id="form">
         <h1 class="form__title">Please enter your book information below:</h1>
         <div class="form__item">
             <label class="form__label" for="author-name">Author's Name:</label>
@@ -47,12 +48,26 @@
                 <input class="form__btn form__btn--submit" type="submit" value="Submit">
             </div>
         </div>
-                                        <!-- 
-            author
-            book title
-            num of pages
-            read or not
-         -->
     </form>
+
+    <table class="flex-col form table hide-me" id="table">
+        <thead class="flex-col header table__head">
+            <tr class="flex table__title"><td>Reading List</td></tr>
+            <tr class="flex table__head-row">
+                <th class="table__item">Author</th>
+                <th class="table__item">Title</th>
+                <th class="table__item">Pages</th>
+                <th class="table__item">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <div class="flex-col form hide-me" id="about">
+        <h1 class="content__title">About</h1>
+        <p class="content__para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, numquam ea corrupti saepe recusandae tempore quidem molestias est aut assumenda?</p>
+    </div>
 </body>
 </html>
