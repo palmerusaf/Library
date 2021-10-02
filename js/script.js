@@ -80,10 +80,7 @@ function appendTableFromArray() {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
     btn.textContent = "delete";
-    btn.addEventListener("click", (bookIndex) => {
-      myReadingList.splice(bookIndex, 1);
-      updateTableContents();
-    });
+    btn.addEventListener("click", deleteBtnCallBack);
     return btn;
   }
   /** Helper Function that attaches read checkbox and label to row element */
@@ -124,6 +121,7 @@ function appendTableFromArray() {
   const table = document.querySelector("tbody");
   for (let i = 0; i < myReadingList.length; i++) {
     const newRow = createBookRow(myReadingList[i], i);
+    newRow.dataset.indexNumber = i;
     newRow.appendChild(deleteBtn(i));
     if (i % 2 !== 0) newRow.className += " table__row--even";
     table.appendChild(newRow);
@@ -137,6 +135,13 @@ function clearTable() {
   const tbody = document.querySelector("tbody");
   const tbodyRows = document.querySelectorAll("tbody tr");
   tbodyRows.forEach((row) => tbody.removeChild(row));
+}
+
+/** Callback function to handle delete button functionality */
+function deleteBtnCallBack(e){
+  const rowIndex = e.target.parentNode.dataset.indexNumber;
+  myReadingList.splice(rowIndex,1);
+  updateTableContents();
 }
 
 /** Updates the table to represent latest array data */
