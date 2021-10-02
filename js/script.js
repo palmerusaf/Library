@@ -1,9 +1,5 @@
 /** Global array to store users books for reading list */
 let myReadingList = [];
-// testList
-addBookToMyReadingList("author1", "title1", 123, false);
-addBookToMyReadingList("author2", "title2", 321, true);
-appendTableFromArray();
 
 /** Event listeners for nav-bar buttons */
 const navBarButtons = document.querySelectorAll(".header__nav-item");
@@ -56,6 +52,20 @@ function Book(author, title, pages, read) {
   this.title = title;
   this.pages = pages;
   this.read = read;
+}
+
+/** Get data from from append to array reset from and update table*/
+function getFormData() {
+  const form = document.querySelector("#form");
+  const read = document.getElementById("true");
+  addBookToMyReadingList(
+    form[0].value,
+    form[1].value,
+    form[2].value,
+    read.checked
+  );
+  form.reset();
+  updateTableContents();
 }
 
 /** Add a book object to array */
