@@ -69,11 +69,10 @@ function appendTableFromArray() {
   function deleteBtn(bookIndex) {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
-    btn.textContent="delete";
+    btn.textContent = "delete";
     btn.addEventListener("click", (bookIndex) => {
       myReadingList.splice(bookIndex, 1);
-      clearTable();
-      appendTableFromArray();
+      updateTableContents();
     });
     return btn;
   }
@@ -128,4 +127,10 @@ function clearTable() {
   const tbody = document.querySelector("tbody");
   const tbodyRows = document.querySelectorAll("tbody tr");
   tbodyRows.forEach((row) => tbody.removeChild(row));
+}
+
+/** Updates the table to represent latest array data */
+function updateTableContents() {
+  clearTable();
+  appendTableFromArray();
 }
