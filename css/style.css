@@ -120,6 +120,8 @@ a {
   font-weight: 800;
   font-size: 24px;
   justify-content: center; }
+.table__head-row {
+  justify-content: space-between; }
 .table__row {
   background: #72c2c5; }
   .table__row--even {
@@ -128,7 +130,7 @@ a {
 .table__item {
   flex: 1;
   padding: .3em;
-  text-align: center;
+  text-align: left;
   overflow: scroll;
   white-space: nowrap;
   -ms-overflow-style: none;

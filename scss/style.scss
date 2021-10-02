@@ -170,6 +170,7 @@ a {
     justify-content: center;
   }
   &__head-row {
+    justify-content: space-between;
   }
 
   &__row {
@@ -182,7 +183,7 @@ a {
   &__item {
     flex: 1;
     padding: .3em;
-    text-align: center;
+    text-align: left;
     overflow: scroll;
     white-space: nowrap;
     -ms-overflow-style: none;
