@@ -1,9 +1,5 @@
 /** Global array to store users books for reading list */
 let myReadingList = [];
-// testList
-addBookToMyReadingList("author1", "title1", 123, false);
-addBookToMyReadingList("author2", "title2", 321, true);
-appendTableFromArray();
 
 /** Event listeners for nav-bar buttons */
 const navBarButtons = document.querySelectorAll(".header__nav-item");
@@ -58,6 +54,20 @@ function Book(author, title, pages, read) {
   this.read = read;
 }
 
+/** Get data from from append to array reset from and update table*/
+function getFormData() {
+  const form = document.querySelector("#form");
+  const read = document.getElementById("true");
+  addBookToMyReadingList(
+    form[0].value,
+    form[1].value,
+    form[2].value,
+    read.checked
+  );
+  form.reset();
+  updateTableContents();
+}
+
 /** Add a book object to array */
 function addBookToMyReadingList(author, title, pages, read) {
   myReadingList.push(new Book(author, title, pages, read));
@@ -69,11 +79,10 @@ function appendTableFromArray() {
   function deleteBtn(bookIndex) {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
-    btn.textContent="delete";
+    btn.textContent = "delete";
     btn.addEventListener("click", (bookIndex) => {
       myReadingList.splice(bookIndex, 1);
-      clearTable();
-      appendTableFromArray();
+      updateTableContents();
     });
     return btn;
   }
@@ -128,4 +137,10 @@ function clearTable() {
   const tbody = document.querySelector("tbody");
   const tbodyRows = document.querySelectorAll("tbody tr");
   tbodyRows.forEach((row) => tbody.removeChild(row));
+}
+
+/** Updates the table to represent latest array data */
+function updateTableContents() {
+  clearTable();
+  appendTableFromArray();
 }
