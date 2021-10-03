@@ -138,6 +138,15 @@ a {
   .table__item::-webkit-scrollbar {
     display: none; }
 
+.about__head-title {
+  text-align: center; }
+.about__section-title {
+  font-size: 1.5em;
+  font-weight: 550;
+  text-decoration: underline; }
+.about__para {
+  line-height: 1.1em; }
+
 .hide-me {
   display: none; }
 
