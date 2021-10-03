@@ -107,8 +107,8 @@ a {
     .form__btn--reset:hover {
       outline: red 2px solid; }
     .form__btn--del {
-      padding: 0 .8em;
-      margin-right: .3em;
+      padding: 0 0.8em;
+      margin-right: 0.3em;
       height: 1.7em;
       align-self: center; }
     .form__btn--submit:hover {
@@ -129,7 +129,7 @@ a {
     color: white; }
 .table__item {
   flex: 1;
-  padding: .3em;
+  padding: 0.3em;
   text-align: left;
   overflow: scroll;
   white-space: nowrap;
@@ -147,6 +147,42 @@ a {
 .about__para {
   line-height: 1.1em; }
 
+@media screen and (max-width: 900px) {
+  .header__title {
+    font-weight: 600;
+    font-size: 20px; }
+  .header__nav-item {
+    font-size: 12px; }
+
+  .form {
+    margin-top: 20px;
+    width: 90vw;
+    padding: 0.7em; }
+    .form__title {
+      font-weight: 600;
+      font-size: 20px; }
+    .form__item {
+      font-size: 12px; }
+    .form__btn {
+      transform: scale(0.8); }
+
+  .table__title {
+    font-weight: 600;
+    font-size: 20px; }
+  .table__head-row {
+    font-size: 12px; }
+  .table__row {
+    font-size: 12px; }
+
+  .about__head-title {
+    font-size: 20px; }
+  .about__section-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: underline; }
+  .about__para {
+    line-height: 1.1em;
+    font-size: 12px; } }
 .hide-me {
   display: none; }
 
