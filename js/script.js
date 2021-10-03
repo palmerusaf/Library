@@ -66,6 +66,8 @@ function getFormData() {
   );
   form.reset();
   updateTableContents();
+  // document.location.href = "#author-name";
+  document.getElementById("author-name").focus()
 }
 
 /** Add a book object to array */
