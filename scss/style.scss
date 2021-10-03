@@ -146,9 +146,9 @@ a {
         outline: red 2px solid;
       }
     }
-    &--del{
-      padding:0 .8em;
-      margin-right: .3em;
+    &--del {
+      padding: 0 0.8em;
+      margin-right: 0.3em;
       height: 1.7em;
       align-self: center;
     }
@@ -182,32 +182,87 @@ a {
   }
   &__item {
     flex: 1;
-    padding: .3em;
+    padding: 0.3em;
     text-align: left;
     overflow: scroll;
     white-space: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
   }
 }
 
-.about{
-  &__head-title{
-text-align: center;
+.about {
+  &__head-title {
+    text-align: center;
   }
-  &__section-title{
-font-size: 1.5em;
-font-weight: 550;
-text-decoration: underline;
+  &__section-title {
+    font-size: 1.5em;
+    font-weight: 550;
+    text-decoration: underline;
   }
-  &__para{
-line-height: 1.1em;
+  &__para {
+    line-height: 1.1em;
   }
 }
 
-.hide-me{
+@media screen and (max-width: 900px) {
+  .header {
+    &__title {
+      font-weight: 600;
+      font-size: 20px;
+    }
+    &__nav-item {
+      font-size: 12px;
+    }
+  }
+  .form {
+    margin-top: 20px;
+    width: 90vw;
+    padding: 0.7em;
+    &__title {
+      font-weight: 600;
+      font-size: 20px;
+    }
+    &__item {
+      font-size: 12px;
+    }
+    &__btn {
+      transform: scale(0.8);
+    }
+  }
+  .table {
+    &__title {
+      font-weight: 600;
+      font-size: 20px;
+    }
+    &__head-row {
+      font-size: 12px;
+    }
+
+    &__row {
+      font-size: 12px;
+    }
+  }
+  .about {
+    &__head-title {
+      font-size: 20px;
+    }
+    &__section-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    &__para {
+      line-height: 1.1em;
+      font-size: 12px;
+    }
+  }
+  
+}
+
+.hide-me {
   display: none;
 }
