@@ -67,7 +67,7 @@ function getFormData() {
   form.reset();
   updateTableContents();
   // document.location.href = "#author-name";
-  document.getElementById("author-name").focus()
+  document.getElementById("author-name").focus();
 }
 
 /** Add a book object to array */
@@ -96,10 +96,10 @@ function appendTableFromArray() {
     checkBox.type = "checkbox";
     checkBox.id = `read${bookIndex}`;
     // attach event listener for update array list of true false stats
-    checkBox.addEventListener(
-      "change",
-      (e) => (myReadingList[bookIndex].read = e.target.checked)
-    );
+    checkBox.addEventListener("change", (e) => {
+      myReadingList[bookIndex].read = e.target.checked;
+      saveArrayLocally();
+    });
     checkBox.checked = read;
     rowItem.append(checkBox);
   }
@@ -140,9 +140,9 @@ function clearTable() {
 }
 
 /** Callback function to handle delete button functionality */
-function deleteBtnCallBack(e){
+function deleteBtnCallBack(e) {
   const rowIndex = e.target.parentNode.dataset.indexNumber;
-  myReadingList.splice(rowIndex,1);
+  myReadingList.splice(rowIndex, 1);
   updateTableContents();
 }
 
@@ -158,3 +158,12 @@ function saveArrayLocally() {
   localStorage.setItem("myReadingListLocal", JSON.stringify(myReadingList));
 }
 
+/** Try to get stored local data if it exists when webpage first loads */
+function getLocalData() {
+  myReadingList = JSON.parse(
+    localStorage.getItem("myReadingListLocal") || "[]"
+  );
+  updateTableContents();
+}
+
+getLocalData();
