@@ -146,8 +146,15 @@ function deleteBtnCallBack(e){
   updateTableContents();
 }
 
-/** Updates the table to represent latest array data */
+/** Updates the table to represent latest array data and updates local data*/
 function updateTableContents() {
   clearTable();
   appendTableFromArray();
+  saveArrayLocally();
 }
+
+/** Save reading list array locally whenever the update table function is called */
+function saveArrayLocally() {
+  localStorage.setItem("myReadingListLocal", JSON.stringify(myReadingList));
+}
+
