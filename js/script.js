@@ -47,13 +47,14 @@ function updatePageElements(navElement) {
 }
 
 /** Constructor for Book Objects*/
-function Book(author, title, pages, read) {
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  constructor(author, title, pages, read) {
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
+  }
 }
-
 /** Get data from from append to array reset from and update table*/
 function getFormData() {
   const form = document.querySelector("#form");
