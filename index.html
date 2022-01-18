@@ -1,82 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
     <script src="js/script.js" defer></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-</head>
-<body class="flex-col">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  </head>
+  <body class="flex-col">
     <header class="flex-col header">
-        <span class="header__title">My Library</span>
-    <nav>
+      <span class="header__title">My Library</span>
+      <nav>
         <ul class="flex header__nav-bar">
-            <li class="header__nav-item header__nav-item--selected" id="nav-add">Add Book</li>
-            <li class="header__nav-item" id="nav-list">My Reading List</li>
-            <li class="header__nav-item" id="nav-about">About</li>
+          <li class="header__nav-item header__nav-item--selected" id="nav-add">
+            Add Book
+          </li>
+          <li class="header__nav-item" id="nav-list">My Reading List</li>
+          <li class="header__nav-item" id="nav-about">About</li>
         </ul>
-    </nav>
+      </nav>
     </header>
 
-    <form class="flex-col form" id="form" action="#" onsubmit="getFormData();return false">
-        <h1 class="form__title">Please enter your book information below:</h1>
-        <div class="form__item">
-            <label class="form__label" for="author-name">Author's Name:</label>
-            <input class="form__input-text" type="text" id="author-name" name="author" placeholder="First Name Last Name" required><span class="form__valid"></span>
+    <form
+      class="flex-col form"
+      id="form"
+      action="#"
+      onsubmit="getFormData();return false"
+    >
+      <h1 class="form__title">Please enter your book information below:</h1>
+      <div class="form__item">
+        <label class="form__label" for="author-name">Author's Name:</label>
+        <input
+          class="form__input-text"
+          type="text"
+          id="author-name"
+          name="author"
+          placeholder="First Name Last Name"
+          required
+        /><span class="form__valid"></span>
+      </div>
+      <div class="form__item">
+        <label class="form__label" for="book-title">Book's Title:</label>
+        <input
+          class="form__input-text"
+          type="text"
+          id="book-title"
+          name="title"
+          placeholder="Title of Book"
+          required
+        /><span class="form__valid"></span>
+      </div>
+      <div class="form__item">
+        <label class="form__label" for="book-pages">Number of Pages:</label>
+        <input
+          class="form__input-num"
+          type="number"
+          id="book-pages"
+          name="pages"
+          placeholder="Enter a whole number"
+          min="1"
+          required
+        /><span class="form__valid"></span>
+      </div>
+      <div class="form__item">
+        <input
+          class="form__input-radio"
+          type="radio"
+          id="true"
+          name="have-read"
+          value="true"
+          required
+        />
+        <label class="form__label" for="true">Have Read</label>
+        <input
+          class="form__input-radio"
+          type="radio"
+          id="false"
+          name="have-read"
+          value="false"
+          required
+        />
+        <label class="form__label" for="false">Haven't Read</label
+        ><span class="form__valid"></span>
+      </div>
+      <div class="flex form__btn-field">
+        <div>
+          <input class="form__btn form__btn--reset" type="reset" />
         </div>
-        <div class="form__item">
-            <label class="form__label" for="book-title">Book's Title:</label>
-            <input class="form__input-text" type="text" id="book-title" name="title" placeholder="Title of Book" required><span class="form__valid"></span>
+        <div>
+          <input
+            class="form__btn form__btn--submit"
+            type="submit"
+            value="Submit"
+          />
         </div>
-        <div class="form__item">
-            <label class="form__label" for="book-pages">Number of Pages:</label>
-            <input class="form__input-num" type="number" id="book-pages" name="pages" placeholder="Enter a whole number" min="1" required><span class="form__valid"></span>
-        </div>
-        <div class="form__item">
-            <input class="form__input-radio" type="radio" id="true" name="have-read" value="true" required>
-            <label class="form__label" for="true">Have Read</label>
-            <input class="form__input-radio" type="radio" id="false" name="have-read" value="false" required>
-            <label class="form__label" for="false">Haven't Read</label><span class="form__valid"></span>
-        </div>
-        <div class="flex form__btn-field">
-            <div>
-                <input class="form__btn form__btn--reset" type="reset">
-            </div>
-            <div>
-                <input class="form__btn form__btn--submit" type="submit" value="Submit">
-            </div>
-        </div>
+      </div>
     </form>
 
     <table class="flex-col form table hide-me" id="table">
-        <thead class="flex-col header table__head">
-            <tr class="flex table__title"><td>Reading List</td></tr>
-            <tr class="flex table__head-row">
-                <th>Author</th>
-                <th>Title</th>
-                <th>Pages</th>
-                <th>Status</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
+      <thead class="flex-col header table__head">
+        <tr class="flex table__title">
+          <td>Reading List</td>
+        </tr>
+        <tr class="flex table__head-row">
+          <th>Author</th>
+          <th>Title</th>
+          <th>Pages</th>
+          <th>Status</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
 
     <div class="flex-col form about hide-me" id="about">
-        <h1 class="about__head-title">About</h1>
-        <p class="about__para">&emsp;&emsp;You can use this web page to create your own personal reading list.</p>
-        <h2 class="about__section-title">Add Book Section</h2>
-        <p class="about__para">&emsp;&emsp;In this section you can enter all the information about the book. When you are finished press submit to add the book to your list.</p>
-        <h2 class="about__section-title">My Reading List Section</h2>
-        <p class="about__para">&emsp;&emsp;In this section you can view all the books you have added to your list. Additionally, you can update the read status as well as delete entries.</p>
-        <h2 class="about__section-title">Storage</h2>
-        <p class="about__para">&emsp;&emsp;When you are finished you can close the site and a copy of your list will be saved locally to your computer. The next time you visit the site your list will automatically be uploaded.</p>
-        <p class="about__para">&emsp;&emsp;For this to work you must use the same browser and computer. You can even save the website and work on your list offline.</p>
+      <h1 class="about__head-title">About</h1>
+      <p class="about__para">
+        &emsp;&emsp;You can use this web page to create your own personal
+        reading list.
+      </p>
+      <h2 class="about__section-title">Add Book Section</h2>
+      <p class="about__para">
+        &emsp;&emsp;In this section you can enter all the information about the
+        book. When you are finished press submit to add the book to your list.
+      </p>
+      <h2 class="about__section-title">My Reading List Section</h2>
+      <p class="about__para">
+        &emsp;&emsp;In this section you can view all the books you have added to
+        your list. Additionally, you can update the read status as well as
+        delete entries.
+      </p>
+      <h2 class="about__section-title">Storage</h2>
+      <p class="about__para">
+        &emsp;&emsp;When you are finished you can close the site and a copy of
+        your list will be saved locally to your computer. The next time you
+        visit the site your list will automatically be uploaded.
+      </p>
+      <p class="about__para">
+        &emsp;&emsp;For this to work you must use the same browser and computer.
+        You can even save the website and work on your list offline.
+      </p>
     </div>
-</body>
+  </body>
 </html>

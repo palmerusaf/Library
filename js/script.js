@@ -134,10 +134,9 @@ function renderReadingList() {
 /** Clears all row elements from the body of table
  * Useful for resetting the table.
  */
-function clearTable() {
-  const tbody = document.querySelector("tbody");
-  const tbodyRows = document.querySelectorAll("tbody tr");
-  tbodyRows.forEach((row) => tbody.removeChild(row));
+function clearEntriesFromReadingList() {
+  const tableBody = document.querySelector("tbody");
+  tableBody.innerText = "";
 }
 
 /** Callback function to handle delete button functionality */
@@ -149,7 +148,7 @@ function deleteBookEntry(e) {
 
 /** Updates the table to represent latest array data and updates local data*/
 function updateTableContents() {
-  clearTable();
+  clearEntriesFromReadingList();
   renderReadingList();
   saveArrayLocally();
 }
