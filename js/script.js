@@ -76,12 +76,28 @@ function addBookToMyReadingList(author, title, pages, read) {
 }
 
 function renderReadingList() {
-  function deleteEntryButton(bookIndex) {
+  const table = document.querySelector("tbody");
+  console.log(myReadingList);
+  for (let i = 0; i < myReadingList.length; i++) {
+    const newRow = makeReadingListEntry(myReadingList[i], i);
+    newRow.dataset.indexNumber = i;
+    newRow.appendChild(makeDeleteEntryButton(i));
+    if (i % 2 !== 0) newRow.className += " table__row--even";
+    table.appendChild(newRow);
+  }
+
+  function makeDeleteEntryButton(bookIndex) {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
     btn.textContent = "delete";
     btn.addEventListener("click", deleteBookEntry);
     return btn;
+
+    function deleteBookEntry(e) {
+      const rowIndex = e.target.parentNode.dataset.indexNumber;
+      myReadingList.splice(rowIndex, 1);
+      updateReadingListDisplay();
+    }
   }
 
   function attachReadCheckbox(rowItem, read, bookIndex) {
@@ -117,29 +133,15 @@ function renderReadingList() {
     }
     return row;
   }
-  const table = document.querySelector("tbody");
-  for (let i = 0; i < myReadingList.length; i++) {
-    const newRow = makeReadingListEntry(myReadingList[i], i);
-    newRow.dataset.indexNumber = i;
-    newRow.appendChild(deleteEntryButton(i));
-    if (i % 2 !== 0) newRow.className += " table__row--even";
-    table.appendChild(newRow);
-  }
 }
 
-function clearEntriesFromReadingListDisplay() {
+function clearAllEntriesFromReadingListDisplay() {
   const tableBody = document.querySelector("tbody");
   tableBody.innerText = "";
 }
 
-function deleteBookEntry(e) {
-  const rowIndex = e.target.parentNode.dataset.indexNumber;
-  myReadingList.splice(rowIndex, 1);
-  updateReadingListDisplay();
-}
-
 function updateReadingListDisplay() {
-  clearEntriesFromReadingListDisplay();
+  clearAllEntriesFromReadingListDisplay();
   renderReadingList();
   saveReadingListToLocalStorage();
 }
