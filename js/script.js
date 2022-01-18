@@ -58,8 +58,9 @@ class Book {
 }
 
 function handleSubmitClick() {
-  const form = document.querySelector("#form");
-  const read = document.getElementById("true");
+  const form = document.querySelector(`.content[data-index='0']`);
+  const read = document.querySelector(`.form__input-radio[value='true']`);
+
   addBookToMyReadingList(
     form[0].value,
     form[1].value,
@@ -69,7 +70,7 @@ function handleSubmitClick() {
   form.reset();
   updateReadingListDisplay();
   moveCursorToTopOfForm();
-  
+
   function moveCursorToTopOfForm() {
     document.getElementById("author-name").focus();
   }
