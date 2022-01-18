@@ -1,7 +1,5 @@
-/** Global array to store users books for reading list */
 let myReadingList = [];
 
-/** Event listeners for nav-bar buttons */
 const navButtons = document.querySelectorAll(".header__nav-item");
 navButtons.forEach((button) =>
   button.addEventListener("click", (e) => {
@@ -10,7 +8,6 @@ navButtons.forEach((button) =>
   })
 );
 
-/** Change Nav-bar status by changing style classes */
 function setNavElementToActive(navElement) {
   navButtons.forEach(
     (button) =>
@@ -22,7 +19,6 @@ function setNavElementToActive(navElement) {
   navElement.className += " header__nav-item--active";
 }
 
-/** Hide/Un-hide body elements based on nav btn click */
 function displayPageContent(navElement) {
   document.querySelectorAll(".form").forEach((node) => {
     if (!node.className.includes("hide-me")) node.className += " hide-me";
@@ -46,7 +42,6 @@ function displayPageContent(navElement) {
   }
 }
 
-/** Constructor for Book Objects*/
 class Book {
   constructor(author, title, pages, read) {
     this.author = author;
@@ -55,7 +50,7 @@ class Book {
     this.read = read;
   }
 }
-/** Get data from from append to array reset from and update table*/
+
 function getFormData() {
   const form = document.querySelector("#form");
   const read = document.getElementById("true");
@@ -66,19 +61,16 @@ function getFormData() {
     read.checked
   );
   form.reset();
-  updateTableContents();
-  // document.location.href = "#author-name";
+  updateReadingListDisplay();
   document.getElementById("author-name").focus();
 }
 
-/** Add a book object to array */
 function addBookToMyReadingList(author, title, pages, read) {
   myReadingList.push(new Book(author, title, pages, read));
 }
 
-/** Loop array and append all items to html table body */
 function renderReadingList() {
-  /** Creates delete button that deletes the given book index then reloads the table */
+  
   function deleteEntryButton(bookIndex) {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
@@ -86,7 +78,7 @@ function renderReadingList() {
     btn.addEventListener("click", deleteBookEntry);
     return btn;
   }
-  /** Helper Function that attaches read checkbox and label to row element */
+  
   function attachReadCheckbox(rowItem, read, bookIndex) {
     const label = document.createElement("label");
     label.htmlFor = `read${bookIndex}`;
@@ -96,16 +88,15 @@ function renderReadingList() {
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.id = `read${bookIndex}`;
-    // attach event listener for update array list of true false stats
     checkBox.addEventListener("change", (e) => {
       myReadingList[bookIndex].read = e.target.checked;
-      saveArrayLocally();
+      saveReadingListToLocalStorage();
     });
     checkBox.checked = read;
     rowItem.append(checkBox);
   }
-  /** Create and return a row that includes elements from book object items*/
-  function createBookRow(book, bookIndex) {
+
+  function makeReadingListEntry(book, bookIndex) {
     const row = document.createElement("tr");
     row.className = "flex table__row";
     for (const item in book) {
@@ -123,7 +114,7 @@ function renderReadingList() {
   }
   const table = document.querySelector("tbody");
   for (let i = 0; i < myReadingList.length; i++) {
-    const newRow = createBookRow(myReadingList[i], i);
+    const newRow = makeReadingListEntry(myReadingList[i], i);
     newRow.dataset.indexNumber = i;
     newRow.appendChild(deleteEntryButton(i));
     if (i % 2 !== 0) newRow.className += " table__row--even";
@@ -131,39 +122,32 @@ function renderReadingList() {
   }
 }
 
-/** Clears all row elements from the body of table
- * Useful for resetting the table.
- */
-function clearEntriesFromReadingList() {
+function clearEntriesFromReadingListDisplay() {
   const tableBody = document.querySelector("tbody");
   tableBody.innerText = "";
 }
 
-/** Callback function to handle delete button functionality */
 function deleteBookEntry(e) {
   const rowIndex = e.target.parentNode.dataset.indexNumber;
   myReadingList.splice(rowIndex, 1);
-  updateTableContents();
+  updateReadingListDisplay();
 }
 
-/** Updates the table to represent latest array data and updates local data*/
-function updateTableContents() {
-  clearEntriesFromReadingList();
+function updateReadingListDisplay() {
+  clearEntriesFromReadingListDisplay();
   renderReadingList();
-  saveArrayLocally();
+  saveReadingListToLocalStorage();
 }
 
-/** Save reading list array locally whenever the update table function is called */
-function saveArrayLocally() {
+function saveReadingListToLocalStorage() {
   localStorage.setItem("myReadingListLocal", JSON.stringify(myReadingList));
 }
 
-/** Try to get stored local data if it exists when webpage first loads */
-function getLocalData() {
+function getReadingListFromLocalStorage() {
   myReadingList = JSON.parse(
     localStorage.getItem("myReadingListLocal") || "[]"
   );
-  updateTableContents();
+  updateReadingListDisplay();
 }
 
-getLocalData();
+getReadingListFromLocalStorage();
