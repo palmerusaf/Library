@@ -2,28 +2,28 @@
 let myReadingList = [];
 
 /** Event listeners for nav-bar buttons */
-const navBarButtons = document.querySelectorAll(".header__nav-item");
-navBarButtons.forEach((button) =>
+const navButtons = document.querySelectorAll(".header__nav-item");
+navButtons.forEach((button) =>
   button.addEventListener("click", (e) => {
-    updateNavBar(e.target);
-    updatePageElements(e.target);
+    setNavElementToActive(e.target);
+    displayPageContent(e.target);
   })
 );
 
 /** Change Nav-bar status by changing style classes */
-function updateNavBar(navElement) {
-  navBarButtons.forEach(
+function setNavElementToActive(navElement) {
+  navButtons.forEach(
     (button) =>
       (button.className = button.className.replace(
-        "header__nav-item--selected",
+        "header__nav-item--active",
         ""
       ))
   );
-  navElement.className += " header__nav-item--selected";
+  navElement.className += " header__nav-item--active";
 }
 
 /** Hide/Un-hide body elements based on nav btn click */
-function updatePageElements(navElement) {
+function displayPageContent(navElement) {
   document.querySelectorAll(".form").forEach((node) => {
     if (!node.className.includes("hide-me")) node.className += " hide-me";
   });
@@ -77,13 +77,13 @@ function addBookToMyReadingList(author, title, pages, read) {
 }
 
 /** Loop array and append all items to html table body */
-function appendTableFromArray() {
+function renderReadingList() {
   /** Creates delete button that deletes the given book index then reloads the table */
-  function deleteBtn(bookIndex) {
+  function deleteEntryButton(bookIndex) {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
     btn.textContent = "delete";
-    btn.addEventListener("click", deleteBtnCallBack);
+    btn.addEventListener("click", deleteBookEntry);
     return btn;
   }
   /** Helper Function that attaches read checkbox and label to row element */
@@ -125,7 +125,7 @@ function appendTableFromArray() {
   for (let i = 0; i < myReadingList.length; i++) {
     const newRow = createBookRow(myReadingList[i], i);
     newRow.dataset.indexNumber = i;
-    newRow.appendChild(deleteBtn(i));
+    newRow.appendChild(deleteEntryButton(i));
     if (i % 2 !== 0) newRow.className += " table__row--even";
     table.appendChild(newRow);
   }
@@ -141,7 +141,7 @@ function clearTable() {
 }
 
 /** Callback function to handle delete button functionality */
-function deleteBtnCallBack(e) {
+function deleteBookEntry(e) {
   const rowIndex = e.target.parentNode.dataset.indexNumber;
   myReadingList.splice(rowIndex, 1);
   updateTableContents();
@@ -150,7 +150,7 @@ function deleteBtnCallBack(e) {
 /** Updates the table to represent latest array data and updates local data*/
 function updateTableContents() {
   clearTable();
-  appendTableFromArray();
+  renderReadingList();
   saveArrayLocally();
 }
 
