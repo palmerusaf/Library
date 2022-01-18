@@ -1,44 +1,54 @@
 let myReadingList = [];
 
 const navButtons = document.querySelectorAll(".header__nav-item");
-navButtons.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    setNavElementToActive(e.target);
-    displayPageContent(e.target);
-  })
-);
+addEventsListenersToNavButtons(navButtons);
 
-function setNavElementToActive(navElement) {
-  navButtons.forEach(
-    (button) =>
-      (button.className = button.className.replace(
-        "header__nav-item--active",
-        ""
-      ))
-  );
-  navElement.className += " header__nav-item--active";
-}
-
-function displayPageContent(navElement) {
-  document.querySelectorAll(".form").forEach((node) => {
-    if (!node.className.includes("hide-me")) node.className += " hide-me";
+function addEventsListenersToNavButtons(navButtons) {
+  navButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      displayPageContent(e);
+      setNavButtonToActive(e);
+    });
   });
-  switch (navElement.id) {
-    case "nav-add":
-      document.querySelector("#form").className = document
-        .querySelector("#form")
-        .className.replace(" hide-me", "");
-      break;
-    case "nav-list":
-      document.querySelector("#table").className = document
-        .querySelector("#table")
-        .className.replace(" hide-me", "");
-      break;
-    case "nav-about":
-      document.querySelector("#about").className = document
-        .querySelector("#about")
-        .className.replace(" hide-me", "");
-      break;
+
+  function setNavButtonToActive(clickEvent) {
+    const button = clickEvent.target;
+    removeActiveClassFromAllButtons();
+    addActiveClassToButton(button);
+
+    function removeActiveClassFromAllButtons() {
+      navButtons.forEach((button) =>
+        button.classList.remove("header__nav-item--active")
+      );
+    }
+
+    function addActiveClassToButton(button) {
+      button.classList.add("header__nav-item--active");
+    }
+  }
+
+  function displayPageContent(clickEvent) {
+    const button = clickEvent.target;
+    document.querySelectorAll(".form").forEach((node) => {
+      if (!node.className.includes("hide-me")) node.className += " hide-me";
+    });
+    switch (button.id) {
+      case "nav-add":
+        document.querySelector("#form").className = document
+          .querySelector("#form")
+          .className.replace(" hide-me", "");
+        break;
+      case "nav-list":
+        document.querySelector("#table").className = document
+          .querySelector("#table")
+          .className.replace(" hide-me", "");
+        break;
+      case "nav-about":
+        document.querySelector("#about").className = document
+          .querySelector("#about")
+          .className.replace(" hide-me", "");
+        break;
+    }
   }
 }
 
@@ -70,7 +80,6 @@ function addBookToMyReadingList(author, title, pages, read) {
 }
 
 function renderReadingList() {
-  
   function deleteEntryButton(bookIndex) {
     const btn = document.createElement("button");
     btn.className = "form__btn form__btn--reset form__btn--del";
@@ -78,7 +87,7 @@ function renderReadingList() {
     btn.addEventListener("click", deleteBookEntry);
     return btn;
   }
-  
+
   function attachReadCheckbox(rowItem, read, bookIndex) {
     const label = document.createElement("label");
     label.htmlFor = `read${bookIndex}`;
