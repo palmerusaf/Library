@@ -14,18 +14,24 @@
       <span class="header__title">My Library</span>
       <nav>
         <ul class="flex header__nav-bar">
-          <li class="header__nav-item header__nav-item--selected" id="nav-add">
+          <li
+            data-index="0"
+            class="header__nav-item header__nav-item--active"
+            id="nav-add"
+          >
             Add Book
           </li>
-          <li class="header__nav-item" id="nav-list">My Reading List</li>
-          <li class="header__nav-item" id="nav-about">About</li>
+          <li data-index="1" class="header__nav-item" id="nav-list">
+            My Reading List
+          </li>
+          <li data-index="2" class="header__nav-item" id="nav-about">About</li>
         </ul>
       </nav>
     </header>
 
     <form
-      class="flex-col form"
-      id="form"
+      data-index="0"
+      class="content flex-col form"
       action="#"
       onsubmit="getFormData();return false"
     >
@@ -99,7 +105,7 @@
       </div>
     </form>
 
-    <table class="flex-col form table hide-me" id="table">
+    <table data-index="1" class="content flex-col form table hide-me">
       <thead class="flex-col header table__head">
         <tr class="flex table__title">
           <td>Reading List</td>
@@ -115,7 +121,7 @@
       <tbody></tbody>
     </table>
 
-    <div class="flex-col form about hide-me" id="about">
+    <div data-index="2" class="content flex-col form about hide-me">
       <h1 class="about__head-title">About</h1>
       <p class="about__para">
         &emsp;&emsp;You can use this web page to create your own personal

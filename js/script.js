@@ -28,26 +28,22 @@ function addEventsListenersToNavButtons(navButtons) {
   }
 
   function displayPageContent(clickEvent) {
-    const button = clickEvent.target;
-    document.querySelectorAll(".form").forEach((node) => {
-      if (!node.className.includes("hide-me")) node.className += " hide-me";
-    });
-    switch (button.id) {
-      case "nav-add":
-        document.querySelector("#form").className = document
-          .querySelector("#form")
-          .className.replace(" hide-me", "");
-        break;
-      case "nav-list":
-        document.querySelector("#table").className = document
-          .querySelector("#table")
-          .className.replace(" hide-me", "");
-        break;
-      case "nav-about":
-        document.querySelector("#about").className = document
-          .querySelector("#about")
-          .className.replace(" hide-me", "");
-        break;
+    const contentElements = [...document.querySelectorAll(".content")];
+    const contentToDisplay = findContentFromClick(clickEvent);
+
+    hideAllContent();
+    contentToDisplay.classList.remove("hide-me");
+
+    function findContentFromClick(clickEvent) {
+      const matchingIndex = clickEvent.target.dataset.index;
+      const contentToDisplay = contentElements.find(
+        (element) => element.dataset.index === matchingIndex
+      );
+      return contentToDisplay;
+    }
+
+    function hideAllContent() {
+      contentElements.forEach((element) => element.classList.add("hide-me"));
     }
   }
 }
