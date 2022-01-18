@@ -57,7 +57,7 @@ class Book {
   }
 }
 
-function getFormData() {
+function handleSubmitClick() {
   const form = document.querySelector("#form");
   const read = document.getElementById("true");
   addBookToMyReadingList(
@@ -68,7 +68,11 @@ function getFormData() {
   );
   form.reset();
   updateReadingListDisplay();
-  document.getElementById("author-name").focus();
+  moveCursorToTopOfForm();
+  
+  function moveCursorToTopOfForm() {
+    document.getElementById("author-name").focus();
+  }
 }
 
 function addBookToMyReadingList(author, title, pages, read) {
@@ -77,7 +81,6 @@ function addBookToMyReadingList(author, title, pages, read) {
 
 function renderReadingList() {
   const table = document.querySelector("tbody");
-  console.log(myReadingList);
   for (let i = 0; i < myReadingList.length; i++) {
     const newRow = makeReadingListEntry(myReadingList[i], i);
     newRow.dataset.indexNumber = i;
