@@ -48,15 +48,6 @@ function addEventsListenersToNavButtons(navButtons) {
   }
 }
 
-class Book {
-  constructor(author, title, pages, read) {
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
-  }
-}
-
 const submitButton = document.getElementsByClassName("form__btn--submit")[0];
 submitButton.addEventListener("click", handleSubmitClick);
 
@@ -84,6 +75,26 @@ function handleSubmitClick(clickEvent) {
 
 function addBookToMyReadingList(author, title, pages, read) {
   myReadingList.push(new Book(author, title, pages, read));
+}
+
+class Book {
+  constructor(author, title, pages, read) {
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
+  }
+}
+
+function updateReadingListDisplay() {
+  clearAllEntriesFromReadingListDisplay();
+  renderReadingList();
+  saveReadingListToLocalStorage();
+}
+
+function clearAllEntriesFromReadingListDisplay() {
+  const tableBody = document.querySelector("tbody");
+  tableBody.innerText = "";
 }
 
 function renderReadingList() {
@@ -143,17 +154,6 @@ function renderReadingList() {
     }
     return row;
   }
-}
-
-function clearAllEntriesFromReadingListDisplay() {
-  const tableBody = document.querySelector("tbody");
-  tableBody.innerText = "";
-}
-
-function updateReadingListDisplay() {
-  clearAllEntriesFromReadingListDisplay();
-  renderReadingList();
-  saveReadingListToLocalStorage();
 }
 
 function saveReadingListToLocalStorage() {
