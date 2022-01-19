@@ -54,17 +54,12 @@ submitButton.addEventListener("click", handleSubmitClick);
 function handleSubmitClick(clickEvent) {
   clickEvent.preventDefault();
   const form = clickEvent.target.parentNode.parentNode.parentNode;
-  const read = document.querySelector(`.form__input-radio[value='true']`);
 
   if (form.reportValidity()) {
-    addBookToMyReadingList(
-      form[0].value,
-      form[1].value,
-      form[2].value,
-      read.checked
-    );
-    form.reset();
+    addBookToListUsingForm(form);
     updateReadingListDisplay();
+
+    form.reset();
     moveCursorToTopOfForm();
   }
 
@@ -73,7 +68,11 @@ function handleSubmitClick(clickEvent) {
   }
 }
 
-function addBookToMyReadingList(author, title, pages, read) {
+function addBookToListUsingForm(form) {
+  const author = form[0].value;
+  const title = form[1].value;
+  const pages = form[2].value;
+  const read = form[3].checked;
   myReadingList.push(new Book(author, title, pages, read));
 }
 
