@@ -57,19 +57,25 @@ class Book {
   }
 }
 
-function handleSubmitClick() {
-  const form = document.querySelector(`.content[data-index='0']`);
+const submitButton = document.getElementsByClassName("form__btn--submit")[0];
+submitButton.addEventListener("click", handleSubmitClick);
+
+function handleSubmitClick(clickEvent) {
+  clickEvent.preventDefault();
+  const form = clickEvent.target.parentNode.parentNode.parentNode;
   const read = document.querySelector(`.form__input-radio[value='true']`);
 
-  addBookToMyReadingList(
-    form[0].value,
-    form[1].value,
-    form[2].value,
-    read.checked
-  );
-  form.reset();
-  updateReadingListDisplay();
-  moveCursorToTopOfForm();
+  if (form.reportValidity()) {
+    addBookToMyReadingList(
+      form[0].value,
+      form[1].value,
+      form[2].value,
+      read.checked
+    );
+    form.reset();
+    updateReadingListDisplay();
+    moveCursorToTopOfForm();
+  }
 
   function moveCursorToTopOfForm() {
     document.getElementById("author-name").focus();
