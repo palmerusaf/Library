@@ -1,4 +1,25 @@
 let bookList = [];
+const form = document.querySelector("form");
+addCustomErrorMessagesToForm(form);
+
+function addCustomErrorMessagesToForm(form) {
+  const textFields = [form[0], form[1], form[2]];
+  addPleaseEnterMessageToTextFields(textFields);
+
+  function addPleaseEnterMessageToTextFields(textFields) {
+    textFields.forEach((field) => {
+      const messageEnding = makeMessageEndingFromFieldLabel(field);
+      const customErrorMessage = `Please enter the ${messageEnding}`;
+      field.setCustomValidity(customErrorMessage);
+    });
+
+    function makeMessageEndingFromFieldLabel(field) {
+      return field.previousElementSibling.textContent
+        .toLowerCase()
+        .replace(":", ".");
+    }
+  }
+}
 
 const navButtons = document.querySelectorAll(".header__nav-item");
 addEventsListenersToNavButtons(navButtons);
@@ -53,7 +74,6 @@ submitButton.addEventListener("click", handleSubmitClick);
 
 function handleSubmitClick(clickEvent) {
   clickEvent.preventDefault();
-  const form = clickEvent.target.parentNode.parentNode.parentNode;
 
   if (form.reportValidity()) {
     appendBookListUsingForm(form);
