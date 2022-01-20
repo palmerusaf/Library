@@ -87,7 +87,7 @@ class Book {
 
 function updateBookListDisplay() {
   clearBookListDisplay();
-  renderBookList();
+  displayBookList();
   saveBookListToLocalStorage();
 }
 
@@ -96,37 +96,24 @@ function clearBookListDisplay() {
   tableBody.innerText = "";
 }
 
-function renderBookList() {
+function displayBookList() {
   const table = document.querySelector("tbody");
   table.appendChild(makeTableRowsFromBookList());
 
   function makeTableRowsFromBookList() {
     const tableRows = document.createDocumentFragment();
-    bookList.forEach((book, index) => {
-      tableRows.appendChild(makeRowFromEntry(book, index));
+    bookList.forEach((bookEntry, index) => {
+      tableRows.appendChild(makeRowFromEntry(bookEntry, index));
     });
     return tableRows;
 
     function makeRowFromEntry(bookEntry, index) {
       const rowContainer = makeRowContainer(index);
-
       rowContainer.appendChild(makeRowItem(bookEntry.author));
       rowContainer.appendChild(makeRowItem(bookEntry.title));
       rowContainer.appendChild(makeRowItem(bookEntry.pages));
-      rowContainer.appendChild(makeReadCheckBox(bookEntry));
-      rowContainer.appendChild(makeDeleteEntryButton(index));
-      // for (const item in bookEntry) {
-      //   const rowItem = document.createElement("td");
-      //   rowItem.classList = "table__item";
-      //   if (item === "read") {
-      //     rowItem.appendChild(makeReadCheckBox(bookEntry));
-      //     rowContainer.appendChild(rowItem);
-      //     continue;
-      //   }
-      //   rowItem.textContent = bookEntry[item];
-      //   rowContainer.appendChild(rowItem);
-      // }
-      // rowContainer.appendChild(makeDeleteEntryButton(index));
+      rowContainer.appendChild(makeReadCheckBox(bookEntry.read));
+      rowContainer.appendChild(makeDeleteEntryButton());
       return rowContainer;
 
       function makeRowContainer(index) {
@@ -144,22 +131,22 @@ function renderBookList() {
         return rowItem;
       }
 
-      function makeReadCheckBox(bookEntry) {
-        const rowItemContainer = makeRowItem("");
+      function makeReadCheckBox(isRead) {
         const checkBoxLabel = document.createElement("label");
         checkBoxLabel.textContent = "Read";
 
-        const checkBox = makeCheckBox(bookEntry);
+        const checkBox = makeCheckBox(isRead);
         checkBoxLabel.appendChild(checkBox);
+
+        const rowItemContainer = makeRowItem("");
         rowItemContainer.appendChild(checkBoxLabel);
         return rowItemContainer;
 
-        function makeCheckBox(bookEntry) {
+        function makeCheckBox(isRead) {
           const checkBox = document.createElement("input");
           checkBox.type = "checkbox";
-          const isRead = bookEntry.read;
           checkBox.checked = isRead;
-          checkBox.addEventListener("change", (event) => {
+          checkBox.addEventListener("input", (event) => {
             updateBookListEntryIsReadStatus(event);
             saveBookListToLocalStorage();
           });
@@ -173,12 +160,12 @@ function renderBookList() {
         }
       }
 
-      function makeDeleteEntryButton(bookIndex) {
-        const btn = document.createElement("button");
-        btn.classList = "form__btn form__btn--reset form__btn--del";
-        btn.textContent = "delete";
-        btn.addEventListener("click", deleteBookEntry);
-        return btn;
+      function makeDeleteEntryButton() {
+        const deleteEntryButton = document.createElement("button");
+        deleteEntryButton.classList = "form__btn form__btn--reset form__btn--del";
+        deleteEntryButton.textContent = "delete";
+        deleteEntryButton.addEventListener("click", deleteBookEntry);
+        return deleteEntryButton;
 
         function deleteBookEntry(e) {
           const rowIndex = e.target.parentNode.dataset.indexNumber;
