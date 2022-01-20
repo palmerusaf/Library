@@ -1,7 +1,6 @@
 @charset "UTF-8";
 * {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   list-style: none;
   text-decoration: none;
   padding: 0;
@@ -44,12 +43,12 @@ a {
   cursor: pointer;
   background: #72c2c5;
 }
-.header__nav-item--active {
+.header__nav-item--selected {
   font-weight: 900;
   background: #4a7c7e;
   color: white;
 }
-.header__nav-item--active:hover {
+.header__nav-item--selected:hover {
   font-weight: 900;
   background: #4a7c7e;
   color: white;
@@ -171,7 +170,10 @@ a {
 }
 .table__item {
   flex: 1;
+  display: inline;
   padding: 0.3em;
+  justify-self: center;
+  align-self: center;
   text-align: left;
   overflow: scroll;
   white-space: nowrap;
