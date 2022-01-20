@@ -56,7 +56,7 @@ function handleSubmitClick(clickEvent) {
   const form = clickEvent.target.parentNode.parentNode.parentNode;
 
   if (form.reportValidity()) {
-    addBookToListUsingForm(form);
+    appendBookListUsingForm(form);
     updateBookListDisplay();
 
     form.reset();
@@ -68,7 +68,7 @@ function handleSubmitClick(clickEvent) {
   }
 }
 
-function addBookToListUsingForm(form) {
+function appendBookListUsingForm(form) {
   const author = form[0].value;
   const title = form[1].value;
   const pages = form[2].value;
