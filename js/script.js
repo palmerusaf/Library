@@ -1,4 +1,4 @@
-let myReadingList = [];
+let bookList = [];
 
 const navButtons = document.querySelectorAll(".header__nav-item");
 addEventsListenersToNavButtons(navButtons);
@@ -57,7 +57,7 @@ function handleSubmitClick(clickEvent) {
 
   if (form.reportValidity()) {
     addBookToListUsingForm(form);
-    updateReadingListDisplay();
+    updateBookListDisplay();
 
     form.reset();
     moveCursorToTopOfForm();
@@ -73,7 +73,7 @@ function addBookToListUsingForm(form) {
   const title = form[1].value;
   const pages = form[2].value;
   const read = form[3].checked;
-  myReadingList.push(new Book(author, title, pages, read));
+  bookList.push(new Book(author, title, pages, read));
 }
 
 class Book {
@@ -85,21 +85,22 @@ class Book {
   }
 }
 
-function updateReadingListDisplay() {
-  clearAllEntriesFromReadingListDisplay();
-  renderReadingList();
-  saveReadingListToLocalStorage();
+function updateBookListDisplay() {
+  clearBookListDisplay();
+  renderBookList();
+  saveBookListToLocalStorage();
 }
 
-function clearAllEntriesFromReadingListDisplay() {
+function clearBookListDisplay() {
   const tableBody = document.querySelector("tbody");
   tableBody.innerText = "";
 }
 
-function renderReadingList() {
+function renderBookList() {
   const table = document.querySelector("tbody");
-  for (let i = 0; i < myReadingList.length; i++) {
-    const newRow = makeReadingListEntry(myReadingList[i], i);
+  table.appendChild(make)
+  for (let i = 0; i < bookList.length; i++) {
+    const newRow = makeReadingListEntry(bookList[i], i);
     newRow.dataset.indexNumber = i;
     newRow.appendChild(makeDeleteEntryButton(i));
     if (i % 2 !== 0) newRow.className += " table__row--even";
@@ -115,8 +116,8 @@ function renderReadingList() {
 
     function deleteBookEntry(e) {
       const rowIndex = e.target.parentNode.dataset.indexNumber;
-      myReadingList.splice(rowIndex, 1);
-      updateReadingListDisplay();
+      bookList.splice(rowIndex, 1);
+      updateBookListDisplay();
     }
   }
 
@@ -130,8 +131,8 @@ function renderReadingList() {
     checkBox.type = "checkbox";
     checkBox.id = `read${bookIndex}`;
     checkBox.addEventListener("change", (e) => {
-      myReadingList[bookIndex].read = e.target.checked;
-      saveReadingListToLocalStorage();
+      bookList[bookIndex].read = e.target.checked;
+      saveBookListToLocalStorage();
     });
     checkBox.checked = read;
     rowItem.append(checkBox);
@@ -155,15 +156,15 @@ function renderReadingList() {
   }
 }
 
-function saveReadingListToLocalStorage() {
-  localStorage.setItem("myReadingListLocal", JSON.stringify(myReadingList));
+function saveBookListToLocalStorage() {
+  localStorage.setItem("myReadingListLocal", JSON.stringify(bookList));
 }
 
-function getReadingListFromLocalStorage() {
-  myReadingList = JSON.parse(
+function getBookListFromLocalStorage() {
+  bookList = JSON.parse(
     localStorage.getItem("myReadingListLocal") || "[]"
   );
-  updateReadingListDisplay();
+  updateBookListDisplay();
 }
 
-getReadingListFromLocalStorage();
+getBookListFromLocalStorage();
