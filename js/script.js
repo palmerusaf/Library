@@ -1,52 +1,81 @@
-/** Global array to store users books for reading list */
-let myReadingList = [];
+let bookList = [];
 
-/** Event listeners for nav-bar buttons */
-const navBarButtons = document.querySelectorAll(".header__nav-item");
-navBarButtons.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    updateNavBar(e.target);
-    updatePageElements(e.target);
-  })
-);
+const navButtons = document.querySelectorAll(".header__nav-item");
+addEventsListenersToNavButtons(navButtons);
 
-/** Change Nav-bar status by changing style classes */
-function updateNavBar(navElement) {
-  navBarButtons.forEach(
-    (button) =>
-      (button.className = button.className.replace(
-        "header__nav-item--selected",
-        ""
-      ))
-  );
-  navElement.className += " header__nav-item--selected";
-}
-
-/** Hide/Un-hide body elements based on nav btn click */
-function updatePageElements(navElement) {
-  document.querySelectorAll(".form").forEach((node) => {
-    if (!node.className.includes("hide-me")) node.className += " hide-me";
+function addEventsListenersToNavButtons(navButtons) {
+  navButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      displayPageContent(e);
+      setNavButtonToActive(e);
+    });
   });
-  switch (navElement.id) {
-    case "nav-add":
-      document.querySelector("#form").className = document
-        .querySelector("#form")
-        .className.replace(" hide-me", "");
-      break;
-    case "nav-list":
-      document.querySelector("#table").className = document
-        .querySelector("#table")
-        .className.replace(" hide-me", "");
-      break;
-    case "nav-about":
-      document.querySelector("#about").className = document
-        .querySelector("#about")
-        .className.replace(" hide-me", "");
-      break;
+
+  function setNavButtonToActive(clickEvent) {
+    const button = clickEvent.target;
+    removeActiveClassFromAllButtons();
+    addActiveClassToButton(button);
+
+    function removeActiveClassFromAllButtons() {
+      navButtons.forEach((button) =>
+        button.classList.remove("header__nav-item--active")
+      );
+    }
+
+    function addActiveClassToButton(button) {
+      button.classList.add("header__nav-item--active");
+    }
+  }
+
+  function displayPageContent(clickEvent) {
+    const contentElements = [...document.querySelectorAll(".content")];
+    const contentToDisplay = findContentFromClick(clickEvent);
+
+    hideAllContent();
+    contentToDisplay.classList.remove("hide-me");
+
+    function findContentFromClick(clickEvent) {
+      const matchingIndex = clickEvent.target.dataset.index;
+      const contentToDisplay = contentElements.find(
+        (element) => element.dataset.index === matchingIndex
+      );
+      return contentToDisplay;
+    }
+
+    function hideAllContent() {
+      contentElements.forEach((element) => element.classList.add("hide-me"));
+    }
   }
 }
 
-/** Constructor for Book Objects*/
+const submitButton = document.getElementsByClassName("form__btn--submit")[0];
+submitButton.addEventListener("click", handleSubmitClick);
+
+function handleSubmitClick(clickEvent) {
+  clickEvent.preventDefault();
+  const form = clickEvent.target.parentNode.parentNode.parentNode;
+
+  if (form.reportValidity()) {
+    appendBookListUsingForm(form);
+    updateBookListDisplay();
+
+    form.reset();
+    moveCursorToTopOfForm();
+  }
+
+  function moveCursorToTopOfForm() {
+    document.getElementById("author-name").focus();
+  }
+}
+
+function appendBookListUsingForm(form) {
+  const author = form[0].value;
+  const title = form[1].value;
+  const pages = form[2].value;
+  const read = form[3].checked;
+  bookList.push(new Book(author, title, pages, read));
+}
+
 class Book {
   constructor(author, title, pages, read) {
     this.author = author;
@@ -55,116 +84,106 @@ class Book {
     this.read = read;
   }
 }
-/** Get data from from append to array reset from and update table*/
-function getFormData() {
-  const form = document.querySelector("#form");
-  const read = document.getElementById("true");
-  addBookToMyReadingList(
-    form[0].value,
-    form[1].value,
-    form[2].value,
-    read.checked
-  );
-  form.reset();
-  updateTableContents();
-  // document.location.href = "#author-name";
-  document.getElementById("author-name").focus();
+
+function updateBookListDisplay() {
+  clearBookListDisplay();
+  displayBookList();
+  saveBookListToLocalStorage();
 }
 
-/** Add a book object to array */
-function addBookToMyReadingList(author, title, pages, read) {
-  myReadingList.push(new Book(author, title, pages, read));
+function clearBookListDisplay() {
+  const tableBody = document.querySelector("tbody");
+  tableBody.innerText = "";
 }
 
-/** Loop array and append all items to html table body */
-function appendTableFromArray() {
-  /** Creates delete button that deletes the given book index then reloads the table */
-  function deleteBtn(bookIndex) {
-    const btn = document.createElement("button");
-    btn.className = "form__btn form__btn--reset form__btn--del";
-    btn.textContent = "delete";
-    btn.addEventListener("click", deleteBtnCallBack);
-    return btn;
-  }
-  /** Helper Function that attaches read checkbox and label to row element */
-  function attachReadCheckbox(rowItem, read, bookIndex) {
-    const label = document.createElement("label");
-    label.htmlFor = `read${bookIndex}`;
-    label.textContent = "Read";
-    rowItem.append(label);
-
-    const checkBox = document.createElement("input");
-    checkBox.type = "checkbox";
-    checkBox.id = `read${bookIndex}`;
-    // attach event listener for update array list of true false stats
-    checkBox.addEventListener("change", (e) => {
-      myReadingList[bookIndex].read = e.target.checked;
-      saveArrayLocally();
-    });
-    checkBox.checked = read;
-    rowItem.append(checkBox);
-  }
-  /** Create and return a row that includes elements from book object items*/
-  function createBookRow(book, bookIndex) {
-    const row = document.createElement("tr");
-    row.className = "flex table__row";
-    for (const item in book) {
-      const rowItem = document.createElement("td");
-      rowItem.className = "table__item";
-      if (item === "read") {
-        attachReadCheckbox(rowItem, book[item], bookIndex);
-        row.appendChild(rowItem);
-        continue;
-      }
-      rowItem.textContent = book[item];
-      row.appendChild(rowItem);
-    }
-    return row;
-  }
+function displayBookList() {
   const table = document.querySelector("tbody");
-  for (let i = 0; i < myReadingList.length; i++) {
-    const newRow = createBookRow(myReadingList[i], i);
-    newRow.dataset.indexNumber = i;
-    newRow.appendChild(deleteBtn(i));
-    if (i % 2 !== 0) newRow.className += " table__row--even";
-    table.appendChild(newRow);
+  table.appendChild(makeTableRowsFromBookList());
+
+  function makeTableRowsFromBookList() {
+    const tableRows = document.createDocumentFragment();
+    bookList.forEach((bookEntry, index) => {
+      tableRows.appendChild(makeRowFromEntry(bookEntry, index));
+    });
+    return tableRows;
+
+    function makeRowFromEntry(bookEntry, index) {
+      const rowContainer = makeRowContainer(index);
+      rowContainer.appendChild(makeRowItem(bookEntry.author));
+      rowContainer.appendChild(makeRowItem(bookEntry.title));
+      rowContainer.appendChild(makeRowItem(bookEntry.pages));
+      rowContainer.appendChild(makeReadCheckBox(bookEntry.read));
+      rowContainer.appendChild(makeDeleteEntryButton());
+      return rowContainer;
+
+      function makeRowContainer(index) {
+        const rowContainer = document.createElement("tr");
+        rowContainer.classList = "flex table__row";
+        if (index % 2 !== 0) rowContainer.classList.add("table__row--even");
+        rowContainer.dataset.indexNumber = index;
+        return rowContainer;
+      }
+
+      function makeRowItem(content) {
+        const rowItem = document.createElement("td");
+        rowItem.classList = "table__item";
+        rowItem.textContent = content;
+        return rowItem;
+      }
+
+      function makeReadCheckBox(isRead) {
+        const checkBoxLabel = document.createElement("label");
+        checkBoxLabel.textContent = "Read";
+
+        const checkBox = makeCheckBox(isRead);
+        checkBoxLabel.appendChild(checkBox);
+
+        const rowItemContainer = makeRowItem("");
+        rowItemContainer.appendChild(checkBoxLabel);
+        return rowItemContainer;
+
+        function makeCheckBox(isRead) {
+          const checkBox = document.createElement("input");
+          checkBox.type = "checkbox";
+          checkBox.checked = isRead;
+          checkBox.addEventListener("input", (event) => {
+            updateBookListEntryIsReadStatus(event);
+            saveBookListToLocalStorage();
+          });
+          return checkBox;
+
+          function updateBookListEntryIsReadStatus(event) {
+            const index =
+              event.target.parentNode.parentNode.parentNode.dataset.indexNumber;
+            bookList[index].read = event.target.checked;
+          }
+        }
+      }
+
+      function makeDeleteEntryButton() {
+        const deleteEntryButton = document.createElement("button");
+        deleteEntryButton.classList = "form__btn form__btn--reset form__btn--del";
+        deleteEntryButton.textContent = "delete";
+        deleteEntryButton.addEventListener("click", deleteBookEntry);
+        return deleteEntryButton;
+
+        function deleteBookEntry(e) {
+          const rowIndex = e.target.parentNode.dataset.indexNumber;
+          bookList.splice(rowIndex, 1);
+          updateBookListDisplay();
+        }
+      }
+    }
   }
 }
 
-/** Clears all row elements from the body of table
- * Useful for resetting the table.
- */
-function clearTable() {
-  const tbody = document.querySelector("tbody");
-  const tbodyRows = document.querySelectorAll("tbody tr");
-  tbodyRows.forEach((row) => tbody.removeChild(row));
+function saveBookListToLocalStorage() {
+  localStorage.setItem("myReadingListLocal", JSON.stringify(bookList));
 }
 
-/** Callback function to handle delete button functionality */
-function deleteBtnCallBack(e) {
-  const rowIndex = e.target.parentNode.dataset.indexNumber;
-  myReadingList.splice(rowIndex, 1);
-  updateTableContents();
+function getBookListFromLocalStorage() {
+  bookList = JSON.parse(localStorage.getItem("myReadingListLocal") || "[]");
+  updateBookListDisplay();
 }
 
-/** Updates the table to represent latest array data and updates local data*/
-function updateTableContents() {
-  clearTable();
-  appendTableFromArray();
-  saveArrayLocally();
-}
-
-/** Save reading list array locally whenever the update table function is called */
-function saveArrayLocally() {
-  localStorage.setItem("myReadingListLocal", JSON.stringify(myReadingList));
-}
-
-/** Try to get stored local data if it exists when webpage first loads */
-function getLocalData() {
-  myReadingList = JSON.parse(
-    localStorage.getItem("myReadingListLocal") || "[]"
-  );
-  updateTableContents();
-}
-
-getLocalData();
+getBookListFromLocalStorage();
