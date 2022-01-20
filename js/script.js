@@ -98,28 +98,35 @@ function clearBookListDisplay() {
 
 function renderBookList() {
   const table = document.querySelector("tbody");
-  table.appendChild(make)
-  for (let i = 0; i < bookList.length; i++) {
-    const newRow = makeReadingListEntry(bookList[i], i);
-    newRow.dataset.indexNumber = i;
-    newRow.appendChild(makeDeleteEntryButton(i));
-    if (i % 2 !== 0) newRow.className += " table__row--even";
-    table.appendChild(newRow);
-  }
+  table.appendChild(makeTableRowsFromBookList());
 
-  function makeDeleteEntryButton(bookIndex) {
-    const btn = document.createElement("button");
-    btn.className = "form__btn form__btn--reset form__btn--del";
-    btn.textContent = "delete";
-    btn.addEventListener("click", deleteBookEntry);
-    return btn;
+  function makeTableRowsFromBookList() {
+    const rowList = document.createDocumentFragment();
+    bookList.forEach((book, index) => {
+      const row = makeReadingListEntry(book, index);
+      rowList.appendChild(row);
+    });
+    return rowList;
 
-    function deleteBookEntry(e) {
-      const rowIndex = e.target.parentNode.dataset.indexNumber;
-      bookList.splice(rowIndex, 1);
-      updateBookListDisplay();
+  function makeReadingListEntry(book, index) {
+    const row = document.createElement("tr");
+    row.className = "flex table__row";
+    if (index % 2 !== 0) row.className.add("table__row--even");
+    row.dataset.indexNumber = index;
+
+    for (const item in book) {
+      const rowItem = document.createElement("td");
+      rowItem.className = "table__item";
+      if (item === "read") {
+        attachReadCheckbox(rowItem, book[item], index);
+        row.appendChild(rowItem);
+        continue;
     }
+      rowItem.textContent = book[item];
+      row.appendChild(rowItem);
   }
+    row.appendChild(makeDeleteEntryButton(index));
+    return row;
 
   function attachReadCheckbox(rowItem, read, bookIndex) {
     const label = document.createElement("label");
@@ -138,22 +145,22 @@ function renderBookList() {
     rowItem.append(checkBox);
   }
 
-  function makeReadingListEntry(book, bookIndex) {
-    const row = document.createElement("tr");
-    row.className = "flex table__row";
-    for (const item in book) {
-      const rowItem = document.createElement("td");
-      rowItem.className = "table__item";
-      if (item === "read") {
-        attachReadCheckbox(rowItem, book[item], bookIndex);
-        row.appendChild(rowItem);
-        continue;
+  function makeDeleteEntryButton(bookIndex) {
+    const btn = document.createElement("button");
+    btn.className = "form__btn form__btn--reset form__btn--del";
+    btn.textContent = "delete";
+    btn.addEventListener("click", deleteBookEntry);
+    return btn;
+
+    function deleteBookEntry(e) {
+      const rowIndex = e.target.parentNode.dataset.indexNumber;
+      bookList.splice(rowIndex, 1);
+      updateBookListDisplay();
       }
-      rowItem.textContent = book[item];
-      row.appendChild(rowItem);
     }
-    return row;
   }
+  }
+
 }
 
 function saveBookListToLocalStorage() {
