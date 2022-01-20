@@ -41,7 +41,7 @@ a {
       cursor: pointer;
       background: rgb(114, 194, 197);
     }
-    &--selected {
+    &--active {
       font-weight: 900;
       background: rgb(74, 124, 126);
       color: white;
@@ -263,7 +263,6 @@ a {
       font-size: 12px;
     }
   }
-  
 }
 
 .hide-me {

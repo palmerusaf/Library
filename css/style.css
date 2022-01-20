@@ -43,12 +43,12 @@ a {
   cursor: pointer;
   background: #72c2c5;
 }
-.header__nav-item--selected {
+.header__nav-item--active {
   font-weight: 900;
   background: #4a7c7e;
   color: white;
 }
-.header__nav-item--selected:hover {
+.header__nav-item--active:hover {
   font-weight: 900;
   background: #4a7c7e;
   color: white;
