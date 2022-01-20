@@ -58,6 +58,7 @@ function handleSubmitClick(clickEvent) {
   if (form.reportValidity()) {
     appendBookListUsingForm(form);
     updateBookListDisplay();
+    saveBookListToLocalStorage();
 
     form.reset();
     moveCursorToTopOfForm();
@@ -88,7 +89,6 @@ class Book {
 function updateBookListDisplay() {
   clearBookListDisplay();
   displayBookList();
-  saveBookListToLocalStorage();
 }
 
 function clearBookListDisplay() {
@@ -162,7 +162,8 @@ function displayBookList() {
 
       function makeDeleteEntryButton() {
         const deleteEntryButton = document.createElement("button");
-        deleteEntryButton.classList = "form__btn form__btn--reset form__btn--del";
+        deleteEntryButton.classList =
+          "form__btn form__btn--reset form__btn--del";
         deleteEntryButton.textContent = "delete";
         deleteEntryButton.addEventListener("click", deleteBookEntry);
         return deleteEntryButton;
@@ -171,6 +172,7 @@ function displayBookList() {
           const rowIndex = e.target.parentNode.dataset.indexNumber;
           bookList.splice(rowIndex, 1);
           updateBookListDisplay();
+          saveBookListToLocalStorage();
         }
       }
     }
