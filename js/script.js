@@ -1,4 +1,59 @@
 let bookList = [];
+const form = document.querySelector("form");
+form.addEventListener("input", () => addCustomErrorMessagesToForm(form));
+addActionToResetButton(addCustomErrorMessagesToForm(form));
+
+function addCustomErrorMessagesToForm(form) {
+  const textFields = [form[0], form[1], form[2]];
+  addCustomValidationToTextFields(textFields);
+  const radioButtons = [form[3], form[4]];
+  addCustomValidationToRadioButtons(radioButtons);
+
+  function addCustomValidationToTextFields(textFields) {
+    textFields.forEach((field) => {
+      addCustomMessageToTextField(field);
+    });
+
+    function addCustomMessageToTextField(inputField) {
+      if (inputField.validity.valueMissing) {
+        const messageEnding = makeMessageEndingFromFieldLabel(inputField);
+        const customErrorMessage = `Please enter the ${messageEnding}`;
+        inputField.setCustomValidity(customErrorMessage);
+      } else if (inputField.validity.rangeUnderflow) {
+        const inputValue = inputField.value;
+        const customErrorMessage = `Your book can not have ${inputValue} pages.`;
+        inputField.setCustomValidity(customErrorMessage);
+      } else {
+        inputField.setCustomValidity("");
+      }
+
+      function makeMessageEndingFromFieldLabel(field) {
+        return field.previousElementSibling.textContent
+          .toLowerCase()
+          .replace(":", ".");
+      }
+    }
+  }
+
+  function addCustomValidationToRadioButtons(radioButtons) {
+    radioButtons.forEach((button) => {
+      addCustomMessageRadioButton(button);
+    });
+
+    function addCustomMessageRadioButton(button) {
+      if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
+        button.setCustomValidity(
+          "Please indicate if you have read this book entry or not."
+        );
+      } else button.setCustomValidity("");
+    }
+  }
+}
+
+function addActionToResetButton(action) {
+  const resetButton = document.querySelector(".form__btn--reset");
+  resetButton.addEventListener("click", action);
+}
 
 const navButtons = document.querySelectorAll(".header__nav-item");
 addEventsListenersToNavButtons(navButtons);
@@ -53,13 +108,13 @@ submitButton.addEventListener("click", handleSubmitClick);
 
 function handleSubmitClick(clickEvent) {
   clickEvent.preventDefault();
-  const form = clickEvent.target.parentNode.parentNode.parentNode;
-
   if (form.reportValidity()) {
     appendBookListUsingForm(form);
     updateBookListDisplay();
+    saveBookListToLocalStorage();
 
     form.reset();
+    addCustomErrorMessagesToForm(form);
     moveCursorToTopOfForm();
   }
 
@@ -88,7 +143,6 @@ class Book {
 function updateBookListDisplay() {
   clearBookListDisplay();
   displayBookList();
-  saveBookListToLocalStorage();
 }
 
 function clearBookListDisplay() {
@@ -162,7 +216,8 @@ function displayBookList() {
 
       function makeDeleteEntryButton() {
         const deleteEntryButton = document.createElement("button");
-        deleteEntryButton.classList = "form__btn form__btn--reset form__btn--del";
+        deleteEntryButton.classList =
+          "form__btn form__btn--reset form__btn--del";
         deleteEntryButton.textContent = "delete";
         deleteEntryButton.addEventListener("click", deleteBookEntry);
         return deleteEntryButton;
@@ -171,6 +226,7 @@ function displayBookList() {
           const rowIndex = e.target.parentNode.dataset.indexNumber;
           bookList.splice(rowIndex, 1);
           updateBookListDisplay();
+          saveBookListToLocalStorage();
         }
       }
     }
