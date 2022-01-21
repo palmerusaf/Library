@@ -1,6 +1,6 @@
 let bookList = [];
 const form = document.querySelector("form");
-addCustomErrorMessagesToForm(form);
+form.addEventListener("input", () => addCustomErrorMessagesToForm(form));
 addActionToResetButton(addCustomErrorMessagesToForm(form));
 
 function addCustomErrorMessagesToForm(form) {
@@ -11,20 +11,16 @@ function addCustomErrorMessagesToForm(form) {
 
   function addCustomValidationToTextFields(textFields) {
     textFields.forEach((field) => {
-      field.addEventListener("input", (e) =>
-        addCustomMessageToTextField(e.target)
-      );
       addCustomMessageToTextField(field);
     });
 
     function addCustomMessageToTextField(inputField) {
-      const inputValue = inputField.value;
-
       if (inputField.validity.valueMissing) {
         const messageEnding = makeMessageEndingFromFieldLabel(inputField);
         const customErrorMessage = `Please enter the ${messageEnding}`;
         inputField.setCustomValidity(customErrorMessage);
       } else if (inputField.validity.rangeUnderflow) {
+        const inputValue = inputField.value;
         const customErrorMessage = `Your book can not have ${inputValue} pages.`;
         inputField.setCustomValidity(customErrorMessage);
       } else {
@@ -41,20 +37,15 @@ function addCustomErrorMessagesToForm(form) {
 
   function addCustomValidationToRadioButtons(radioButtons) {
     radioButtons.forEach((button) => {
-      button.addEventListener("input", () =>
-        addCustomMessageToRadioButtons(radioButtons)
-      );
-      addCustomMessageToRadioButtons(radioButtons);
+      addCustomMessageRadioButton(button);
     });
 
-    function addCustomMessageToRadioButtons(buttons) {
-      buttons.forEach((button) => {
-        if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
-          button.setCustomValidity(
-            "Please indicate if you have read this book entry or not."
-          );
-        } else button.setCustomValidity("");
-      });
+    function addCustomMessageRadioButton(button) {
+      if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
+        button.setCustomValidity(
+          "Please indicate if you have read this book entry or not."
+        );
+      } else button.setCustomValidity("");
     }
   }
 }
