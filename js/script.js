@@ -1,24 +1,67 @@
 let bookList = [];
 const form = document.querySelector("form");
 addCustomErrorMessagesToForm(form);
+addActionToResetButton(addCustomErrorMessagesToForm(form));
 
 function addCustomErrorMessagesToForm(form) {
   const textFields = [form[0], form[1], form[2]];
-  addPleaseEnterMessageToTextFields(textFields);
+  addCustomValidationToTextFields(textFields);
+  const radioButtons = [form[3], form[4]];
+  addCustomValidationToRadioButtons(radioButtons);
 
-  function addPleaseEnterMessageToTextFields(textFields) {
+  function addCustomValidationToTextFields(textFields) {
     textFields.forEach((field) => {
-      const messageEnding = makeMessageEndingFromFieldLabel(field);
-      const customErrorMessage = `Please enter the ${messageEnding}`;
-      field.setCustomValidity(customErrorMessage);
+      field.addEventListener("input", (e) =>
+        addCustomMessageToTextField(e.target)
+      );
+      addCustomMessageToTextField(field);
     });
 
-    function makeMessageEndingFromFieldLabel(field) {
-      return field.previousElementSibling.textContent
-        .toLowerCase()
-        .replace(":", ".");
+    function addCustomMessageToTextField(inputField) {
+      const inputValue = inputField.value;
+
+      if (inputField.validity.valueMissing) {
+        const messageEnding = makeMessageEndingFromFieldLabel(inputField);
+        const customErrorMessage = `Please enter the ${messageEnding}`;
+        inputField.setCustomValidity(customErrorMessage);
+      } else if (inputField.validity.rangeUnderflow) {
+        const customErrorMessage = `Your book can not have ${inputValue} pages.`;
+        inputField.setCustomValidity(customErrorMessage);
+      } else {
+        inputField.setCustomValidity("");
+      }
+
+      function makeMessageEndingFromFieldLabel(field) {
+        return field.previousElementSibling.textContent
+          .toLowerCase()
+          .replace(":", ".");
+      }
     }
   }
+
+  function addCustomValidationToRadioButtons(radioButtons) {
+    radioButtons.forEach((button) => {
+      button.addEventListener("input", () =>
+        addCustomMessageToRadioButtons(radioButtons)
+      );
+      addCustomMessageToRadioButtons(radioButtons);
+    });
+
+    function addCustomMessageToRadioButtons(buttons) {
+      buttons.forEach((button) => {
+        if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
+          button.setCustomValidity(
+            "Please indicate if you have read this book entry or not."
+          );
+        } else button.setCustomValidity("");
+      });
+    }
+  }
+}
+
+function addActionToResetButton(action) {
+  const resetButton = document.querySelector(".form__btn--reset");
+  resetButton.addEventListener("click", action);
 }
 
 const navButtons = document.querySelectorAll(".header__nav-item");
@@ -74,13 +117,13 @@ submitButton.addEventListener("click", handleSubmitClick);
 
 function handleSubmitClick(clickEvent) {
   clickEvent.preventDefault();
-
   if (form.reportValidity()) {
     appendBookListUsingForm(form);
     updateBookListDisplay();
     saveBookListToLocalStorage();
 
     form.reset();
+    addCustomErrorMessagesToForm(form);
     moveCursorToTopOfForm();
   }
 
