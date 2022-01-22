@@ -6,8 +6,10 @@ addActionToResetButton(addCustomErrorMessagesToForm(form));
 function addCustomErrorMessagesToForm(form) {
   const textFields = [form[0], form[1], form[2]];
   addCustomValidationToTextFields(textFields);
+  updateErrorDisplayForTextFields(textFields);
   const radioButtons = [form[3], form[4]];
   addCustomValidationToRadioButtons(radioButtons);
+  updateErrorDisplayForRadioButtons(radioButtons);
 
   function addCustomValidationToTextFields(textFields) {
     textFields.forEach((field) => {
@@ -35,6 +37,14 @@ function addCustomErrorMessagesToForm(form) {
     }
   }
 
+  function updateErrorDisplayForTextFields(textFields) {
+    textFields.forEach(field=>{
+      const errorMessage=field.validationMessage
+      const errorDisplayBox=field.parentNode.nextElementSibling
+      errorDisplayBox.textContent=errorMessage
+    })
+  }
+
   function addCustomValidationToRadioButtons(radioButtons) {
     radioButtons.forEach((button) => {
       addCustomMessageRadioButton(button);
@@ -48,6 +58,8 @@ function addCustomErrorMessagesToForm(form) {
       } else button.setCustomValidity("");
     }
   }
+
+  function updateErrorDisplayForRadioButtons(radioButtons) {}
 }
 
 function addActionToResetButton(action) {
