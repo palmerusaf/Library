@@ -1,12 +1,18 @@
 let bookList = [];
 const form = document.querySelector("form");
-const formInputs = [...form.querySelectorAll("input")];
-formInputs.forEach((inputField) => {
-  inputField.addEventListener("input", () =>
-    addCustomErrorMessagesToInputField(inputField)
-  );
-  inputField.addEventListener("invalid", (e) => e.preventDefault());
-});
+const formInputs = [...form.querySelectorAll("input")].filter(
+  (input) => input.type !== "submit" && input.type !== "reset"
+);
+addCustomValidationListenersToFormInputs();
+
+function addCustomValidationListenersToFormInputs() {
+  formInputs.forEach((inputField) => {
+    inputField.addEventListener("input", () =>
+      addCustomErrorMessagesToInputField(inputField)
+    );
+    inputField.addEventListener("invalid", (e) => e.preventDefault());
+  });
+}
 
 function addCustomErrorMessagesToInputField(inputField) {
   inputField.reportValidity();
@@ -25,6 +31,8 @@ function addCustomErrorMessagesToInputField(inputField) {
       const inputValue = inputField.value;
       const customErrorMessage = `Your book can not have ${inputValue} pages.`;
       updateErrorDisplayBoxForField(inputField, customErrorMessage);
+    } else if (inputField.validity.badInput) {
+      updateErrorDisplayBoxForField(inputField, "Please enter a number.");
     } else {
       updateErrorDisplayBoxForField(inputField, "");
     }
@@ -109,13 +117,20 @@ function handleSubmitClick(clickEvent) {
     appendBookListUsingForm(form);
     updateBookListDisplay();
     saveBookListToLocalStorage();
-
     form.reset();
     moveCursorToTopOfForm();
+  } else {
+    fireCustomErrorMessagesOnAllInputElements();
   }
 
   function moveCursorToTopOfForm() {
     document.getElementById("author-name").focus();
+  }
+
+  function fireCustomErrorMessagesOnAllInputElements() {
+    formInputs.forEach((inputField) =>
+      addCustomErrorMessagesToInputField(inputField)
+    );
   }
 }
 
