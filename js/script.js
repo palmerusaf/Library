@@ -1,75 +1,5 @@
 let bookList = [];
 const form = document.querySelector("form");
-form.addEventListener("submit", () => addCustomErrorMessagesToForm(form));
-addActionToResetButton(() => addCustomErrorMessagesToForm(form));
-
-function addCustomErrorMessagesToForm(form) {
-  const textFields = [form[0], form[1], form[2]];
-  addCustomValidationToTextFields(textFields);
-  updateErrorDisplayForTextFields(textFields);
-  const radioButtons = [form[3], form[4]];
-  addCustomValidationToRadioButtons(radioButtons);
-  updateErrorDisplayForRadioButtons(radioButtons);
-
-  function addCustomValidationToTextFields(textFields) {
-    textFields.forEach((field) => {
-      addCustomMessageToTextField(field);
-    });
-
-    function addCustomMessageToTextField(inputField) {
-      if (inputField.validity.valueMissing) {
-        const messageEnding = makeMessageEndingFromFieldLabel(inputField);
-        const customErrorMessage = `Please enter the ${messageEnding}`;
-        inputField.setCustomValidity(customErrorMessage);
-      } else if (inputField.validity.rangeUnderflow) {
-        const inputValue = inputField.value;
-        const customErrorMessage = `Your book can not have ${inputValue} pages.`;
-        inputField.setCustomValidity(customErrorMessage);
-      } else {
-        inputField.setCustomValidity("");
-      }
-
-      function makeMessageEndingFromFieldLabel(field) {
-        return field.previousElementSibling.textContent
-          .toLowerCase()
-          .replace(":", ".");
-      }
-    }
-  }
-
-  function updateErrorDisplayForTextFields(textFields) {
-    textFields.forEach((field) => {
-      const errorMessage = field.validationMessage;
-      const errorDisplayBox = field.parentNode.nextElementSibling;
-      errorDisplayBox.textContent = errorMessage;
-    });
-  }
-
-  function addCustomValidationToRadioButtons(radioButtons) {
-    radioButtons.forEach((button) => {
-      addCustomMessageRadioButton(button);
-    });
-
-    function addCustomMessageRadioButton(button) {
-      if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
-        button.setCustomValidity(
-          "Please indicate if you have read this book entry or not."
-        );
-      } else button.setCustomValidity("");
-    }
-  }
-
-  function updateErrorDisplayForRadioButtons(radioButtons) {
-    const errorMessage = radioButtons[0].validationMessage;
-    const errorDisplayBox = radioButtons[0].parentNode.nextElementSibling;
-    errorDisplayBox.textContent = errorMessage;
-  }
-}
-
-function addActionToResetButton(action) {
-  const resetButton = document.querySelector(".form__btn--reset");
-  resetButton.addEventListener("click", action);
-}
 
 const navButtons = document.querySelectorAll(".header__nav-item");
 addEventsListenersToNavButtons(navButtons);
@@ -124,14 +54,78 @@ submitButton.addEventListener("click", handleSubmitClick);
 
 function handleSubmitClick(clickEvent) {
   clickEvent.preventDefault();
+  addCustomErrorMessagesToForm(form);
+
   if (form.reportValidity()) {
     appendBookListUsingForm(form);
     updateBookListDisplay();
     saveBookListToLocalStorage();
 
     form.reset();
-    addCustomErrorMessagesToForm(form);
     moveCursorToTopOfForm();
+  }
+
+  function addCustomErrorMessagesToForm(form) {
+    const textFields = [form[0], form[1], form[2]];
+    addCustomValidationToTextFields(textFields);
+    updateErrorDisplayForTextFields(textFields);
+    const radioButtons = [form[3], form[4]];
+    addCustomValidationToRadioButtons(radioButtons);
+    updateErrorDisplayForRadioButtons(radioButtons);
+
+    function addCustomValidationToTextFields(textFields) {
+      textFields.forEach((field) => {
+        addCustomMessageToTextField(field);
+      });
+
+      function addCustomMessageToTextField(inputField) {
+        if (inputField.validity.valueMissing) {
+          const messageEnding = makeMessageEndingFromFieldLabel(inputField);
+          const customErrorMessage = `Please enter the ${messageEnding}`;
+          inputField.setCustomValidity(customErrorMessage);
+        } else if (inputField.validity.rangeUnderflow) {
+          const inputValue = inputField.value;
+          const customErrorMessage = `Your book can not have ${inputValue} pages.`;
+          inputField.setCustomValidity(customErrorMessage);
+        } else {
+          inputField.setCustomValidity("");
+        }
+
+        function makeMessageEndingFromFieldLabel(field) {
+          return field.previousElementSibling.textContent
+            .toLowerCase()
+            .replace(":", ".");
+        }
+      }
+    }
+
+    function updateErrorDisplayForTextFields(textFields) {
+      textFields.forEach((field) => {
+        const errorMessage = field.validationMessage;
+        const errorDisplayBox = field.parentNode.nextElementSibling;
+        errorDisplayBox.textContent = errorMessage;
+      });
+    }
+
+    function addCustomValidationToRadioButtons(radioButtons) {
+      radioButtons.forEach((button) => {
+        addCustomMessageRadioButton(button);
+      });
+
+      function addCustomMessageRadioButton(button) {
+        if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
+          button.setCustomValidity(
+            "Please indicate if you have read this book entry or not."
+          );
+        } else button.setCustomValidity("");
+      }
+    }
+
+    function updateErrorDisplayForRadioButtons(radioButtons) {
+      const errorMessage = radioButtons[0].validationMessage;
+      const errorDisplayBox = radioButtons[0].parentNode.nextElementSibling;
+      errorDisplayBox.textContent = errorMessage;
+    }
   }
 
   function moveCursorToTopOfForm() {
