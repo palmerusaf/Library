@@ -1,58 +1,62 @@
 let bookList = [];
 const form = document.querySelector("form");
-form.addEventListener("input", () => addCustomErrorMessagesToForm(form));
-addActionToResetButton(addCustomErrorMessagesToForm(form));
+const formInputs = [...form.querySelectorAll("input")].filter(
+  (input) => input.type !== "submit" && input.type !== "reset"
+);
+addCustomValidationListenersToFormInputs();
 
-function addCustomErrorMessagesToForm(form) {
-  const textFields = [form[0], form[1], form[2]];
-  addCustomValidationToTextFields(textFields);
-  const radioButtons = [form[3], form[4]];
-  addCustomValidationToRadioButtons(radioButtons);
-
-  function addCustomValidationToTextFields(textFields) {
-    textFields.forEach((field) => {
-      addCustomMessageToTextField(field);
-    });
-
-    function addCustomMessageToTextField(inputField) {
-      if (inputField.validity.valueMissing) {
-        const messageEnding = makeMessageEndingFromFieldLabel(inputField);
-        const customErrorMessage = `Please enter the ${messageEnding}`;
-        inputField.setCustomValidity(customErrorMessage);
-      } else if (inputField.validity.rangeUnderflow) {
-        const inputValue = inputField.value;
-        const customErrorMessage = `Your book can not have ${inputValue} pages.`;
-        inputField.setCustomValidity(customErrorMessage);
-      } else {
-        inputField.setCustomValidity("");
-      }
-
-      function makeMessageEndingFromFieldLabel(field) {
-        return field.previousElementSibling.textContent
-          .toLowerCase()
-          .replace(":", ".");
-      }
-    }
-  }
-
-  function addCustomValidationToRadioButtons(radioButtons) {
-    radioButtons.forEach((button) => {
-      addCustomMessageRadioButton(button);
-    });
-
-    function addCustomMessageRadioButton(button) {
-      if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
-        button.setCustomValidity(
-          "Please indicate if you have read this book entry or not."
-        );
-      } else button.setCustomValidity("");
-    }
-  }
+function addCustomValidationListenersToFormInputs() {
+  formInputs.forEach((inputField) => {
+    inputField.addEventListener("input", () =>
+      addCustomErrorMessagesToInputField(inputField)
+    );
+    inputField.addEventListener("invalid", (e) => e.preventDefault());
+  });
 }
 
-function addActionToResetButton(action) {
-  const resetButton = document.querySelector(".form__btn--reset");
-  resetButton.addEventListener("click", action);
+function addCustomErrorMessagesToInputField(inputField) {
+  inputField.reportValidity();
+  if (inputField.type === "radio") {
+    addCustomMessageRadioButton(inputField);
+  } else {
+    addCustomMessageToTextField(inputField);
+  }
+
+  function addCustomMessageToTextField(inputField) {
+    if (inputField.validity.valueMissing) {
+      const messageEnding = makeMessageEndingFromFieldLabel(inputField);
+      const customErrorMessage = `Please enter the ${messageEnding}`;
+      updateErrorDisplayBoxForField(inputField, customErrorMessage);
+    } else if (inputField.validity.rangeUnderflow) {
+      const inputValue = inputField.value;
+      const customErrorMessage = `Your book can not have ${inputValue} pages.`;
+      updateErrorDisplayBoxForField(inputField, customErrorMessage);
+    } else if (inputField.validity.badInput) {
+      updateErrorDisplayBoxForField(inputField, "Please enter a number.");
+    } else {
+      updateErrorDisplayBoxForField(inputField, "");
+    }
+
+    function makeMessageEndingFromFieldLabel(inputField) {
+      return inputField.previousElementSibling.textContent
+        .toLowerCase()
+        .replace(":", ".");
+    }
+  }
+
+  function addCustomMessageRadioButton(inputField) {
+    if (form[3].validity.valueMissing && form[4].validity.valueMissing) {
+      updateErrorDisplayBoxForField(
+        inputField,
+        "Please indicate if you have read this book entry or not."
+      );
+    } else updateErrorDisplayBoxForField(inputField, "");
+  }
+
+  function updateErrorDisplayBoxForField(inputField, customErrorMessage) {
+    const errorDisplayBox = inputField.parentNode.nextElementSibling;
+    errorDisplayBox.textContent = customErrorMessage;
+  }
 }
 
 const navButtons = document.querySelectorAll(".header__nav-item");
@@ -108,18 +112,25 @@ submitButton.addEventListener("click", handleSubmitClick);
 
 function handleSubmitClick(clickEvent) {
   clickEvent.preventDefault();
+
   if (form.reportValidity()) {
     appendBookListUsingForm(form);
     updateBookListDisplay();
     saveBookListToLocalStorage();
-
     form.reset();
-    addCustomErrorMessagesToForm(form);
     moveCursorToTopOfForm();
+  } else {
+    fireCustomErrorMessagesOnAllInputElements();
   }
 
   function moveCursorToTopOfForm() {
     document.getElementById("author-name").focus();
+  }
+
+  function fireCustomErrorMessagesOnAllInputElements() {
+    formInputs.forEach((inputField) =>
+      addCustomErrorMessagesToInputField(inputField)
+    );
   }
 }
 
