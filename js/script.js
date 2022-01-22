@@ -1,7 +1,7 @@
 let bookList = [];
 const form = document.querySelector("form");
-form.addEventListener("input", () => addCustomErrorMessagesToForm(form));
-addActionToResetButton(addCustomErrorMessagesToForm(form));
+form.addEventListener("submit", () => addCustomErrorMessagesToForm(form));
+addActionToResetButton(() => addCustomErrorMessagesToForm(form));
 
 function addCustomErrorMessagesToForm(form) {
   const textFields = [form[0], form[1], form[2]];
@@ -38,11 +38,11 @@ function addCustomErrorMessagesToForm(form) {
   }
 
   function updateErrorDisplayForTextFields(textFields) {
-    textFields.forEach(field=>{
-      const errorMessage=field.validationMessage
-      const errorDisplayBox=field.parentNode.nextElementSibling
-      errorDisplayBox.textContent=errorMessage
-    })
+    textFields.forEach((field) => {
+      const errorMessage = field.validationMessage;
+      const errorDisplayBox = field.parentNode.nextElementSibling;
+      errorDisplayBox.textContent = errorMessage;
+    });
   }
 
   function addCustomValidationToRadioButtons(radioButtons) {
@@ -59,7 +59,11 @@ function addCustomErrorMessagesToForm(form) {
     }
   }
 
-  function updateErrorDisplayForRadioButtons(radioButtons) {}
+  function updateErrorDisplayForRadioButtons(radioButtons) {
+    const errorMessage = radioButtons[0].validationMessage;
+    const errorDisplayBox = radioButtons[0].parentNode.nextElementSibling;
+    errorDisplayBox.textContent = errorMessage;
+  }
 }
 
 function addActionToResetButton(action) {
