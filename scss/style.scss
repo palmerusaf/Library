@@ -268,3 +268,16 @@ a {
 .hide-me {
   display: none;
 }
+
+.error {
+  color: red;
+  min-height: 19px;
+  font-weight: 600;
+  font-size: 0.8em;
+  opacity: 1;
+  transition: 1200ms;
+  &:empty {
+    opacity: 0;
+    transition: 600ms;
+  }
+}
